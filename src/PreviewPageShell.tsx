@@ -3,19 +3,9 @@ import React, {
   useEffect,
   Suspense,
 } from 'react';
-import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import Compiler, { CompilerBaseProps } from './components/Compiler';
-
-function Fallback(): JSX.Element {
-  return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="text-blue-500 w-8 h-8">
-        <Spinner />
-      </div>
-    </div>
-  );
-}
+import FullLoader from './components/FullLoader';
 
 interface ErrorFallbackProps {
   error?: Error;
@@ -82,7 +72,7 @@ export default function PreviewPageShell(
         }}
         fallback={error && <ErrorFallback error={error} />}
       >
-        <Suspense fallback={<Fallback />}>
+        <Suspense fallback={<FullLoader />}>
           <Compiler
             title={title}
             code={debouncedState}

@@ -15,6 +15,7 @@ export default function DarkModeToggle(): JSX.Element {
         }}
         className="w-6 h-6"
       >
+        <span className="sr-only">Toggle Dark Mode</span>
         {isDarkMode
           ? (
             <MoonIcon />

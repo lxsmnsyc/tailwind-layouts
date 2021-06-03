@@ -4,20 +4,10 @@ import React, {
   Suspense,
 } from 'react';
 import Editor from '@monaco-editor/react';
-import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import { useDarkPreference } from './components/ThemeAdapter';
 import Compiler, { CompilerBaseProps } from './components/Compiler';
-
-function Fallback(): JSX.Element {
-  return (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="text-blue-500 w-8 h-8">
-        <Spinner />
-      </div>
-    </div>
-  );
-}
+import FullLoader from './components/FullLoader';
 
 interface ErrorFallbackProps {
   error?: Error;
@@ -93,7 +83,7 @@ export default function DemoPageShell(
             onChange={(value) => {
               setState(value);
             }}
-            loading={<Fallback />}
+            loading={<FullLoader />}
           />
         </div>
         <div className="flex-1 overflow-scroll border-l relative">
@@ -105,7 +95,7 @@ export default function DemoPageShell(
             }}
             fallback={error && <ErrorFallback error={error} />}
           >
-            <Suspense fallback={<Fallback />}>
+            <Suspense fallback={<FullLoader />}>
               <Compiler
                 title={title}
                 code={debouncedState}

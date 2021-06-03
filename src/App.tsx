@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useRoute } from 'wouter';
 import PageShell from './PageShell';
 import ThemeAdapter from './components/ThemeAdapter';
-import DemoPageShell from './DemoPageShell';
-import PreviewPageShell from './PreviewPageShell';
 import Home from './Home';
 import PAGES from './pages';
+import FullLoader from './components/FullLoader';
+
+const DemoPageShell = lazy(() => import('./DemoPageShell'));
+const PreviewPageShell = lazy(() => import('./PreviewPageShell'));
 
 interface InternalParams extends Record<string, string> {
   id: string
@@ -17,10 +19,12 @@ function Pattern(): JSX.Element {
   if (match && params) {
     return (
       <PageShell>
-        <DemoPageShell
-          title={PAGES[params.id].title}
-          code={PAGES[params.id].code}
-        />
+        <Suspense fallback={<FullLoader />}>
+          <DemoPageShell
+            title={PAGES[params.id].title}
+            code={PAGES[params.id].code}
+          />
+        </Suspense>
       </PageShell>
     );
   }
@@ -37,10 +41,12 @@ function Internal(): JSX.Element {
 
   if (match && params) {
     return (
-      <PreviewPageShell
-        title={PAGES[params.id].title}
-        code={PAGES[params.id].code}
-      />
+      <Suspense fallback={<FullLoader />}>
+        <PreviewPageShell
+          title={PAGES[params.id].title}
+          code={PAGES[params.id].code}
+        />
+      </Suspense>
     );
   }
 
