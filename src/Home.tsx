@@ -50,9 +50,6 @@ export default function Home(): JSX.Element {
   return (
     <div className="flex-1 w-full flex flex-col">
       <div className="flex-1 flex flex-col overflow-y-scroll">
-        <div className="flex-none px-8 pt-4 pb-2">
-          <h2 className="text-xl font-bold">Patterns</h2>
-        </div>
         <div className="flex-1 px-8 pb-4 pt-2 flex flex-wrap">
           {Object.values(PAGES).map((value) => (
             <PatternCard
