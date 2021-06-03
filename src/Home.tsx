@@ -50,7 +50,7 @@ export default function Home(): JSX.Element {
   return (
     <div className="flex-1 w-full flex flex-col">
       <div className="flex-1 flex flex-col overflow-y-scroll">
-        <div className="flex-1 px-8 pb-4 pt-2 flex flex-wrap">
+        <div className="flex-1 px-8 pb-4 pt-2 flex flex-wrap items-center justify-start">
           {Object.values(PAGES).map((value) => (
             <PatternCard
               key={value.path}
