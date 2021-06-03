@@ -32,7 +32,6 @@ export default function ImagePattern(): JSX.Element {
     <DemoPageShell
       title="Image"
       code={CODE}
-      imports={{}}
       route="/patterns/image"
     />
   );

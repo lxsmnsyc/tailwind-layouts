@@ -114,7 +114,7 @@ export default function WindowPattern(): JSX.Element {
     <DemoPageShell
       title="Window"
       code={CODE}
-      imports={{}}
+      
       route="/patterns/window"
     />
   );

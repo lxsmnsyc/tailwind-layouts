@@ -8,7 +8,6 @@ import React, {
 import Editor from '@monaco-editor/react';
 import { useRoute } from 'wouter';
 import createResource from './utils/create-resource';
-import evalCode, { Imports } from './utils/eval-code';
 import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import { useDarkPreference } from './components/ThemeAdapter';
@@ -30,7 +29,6 @@ function Fallback(): JSX.Element {
 interface CompilerBaseProps {
   code?: string;
   title: string;
-  imports: Imports;
 }
 
 interface CompilerProps extends CompilerBaseProps {
@@ -45,20 +43,19 @@ function Compiler(
   {
     code,
     title,
-    imports,
     onError,
   }: CompilerProps,
 ): JSX.Element {
   esbuildResource.read();
 
-  const [compiled, setCompiled] = useState<string>();
+  const [exported, setExported] = useState<ComponentExport>();
 
   useEffect(() => {
     let mounted = true;
 
     if (code) {
       esbuild.transform(code, {
-        format: 'iife',
+        format: 'esm',
         target: 'es2017',
         jsxFactory: 'React.createElement',
         jsxFragment: 'React.Fragment',
@@ -66,9 +63,14 @@ function Compiler(
         globalName: 'Component',
       }).then((result) => {
         if (mounted) {
-          setCompiled(result.code);
+          const encodedJs = encodeURIComponent(result.code);
+          const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
+          return import(/* @vite-ignore */dataUri).then((mod: ComponentExport) => {
+            setExported(mod);
+          });
         }
-      }, (err) => {
+        return undefined;
+      }).catch((err) => {
         onError(err);
       });
     }
@@ -77,27 +79,6 @@ function Compiler(
       mounted = false;
     };
   }, [code, title, onError]);
-
-  const [exported, setExported] = useState<ComponentExport>();
-
-  useEffect(() => {
-    if (compiled) {
-      try {
-        const compiledModule = evalCode<ComponentExport>('Component', compiled, {
-          React,
-          ...imports,
-        });
-
-        setExported(compiledModule(
-          React,
-          ...Object.values(imports),
-        ));
-      } catch (err) {
-        console.log('ERROR!');
-        onError(err);
-      }
-    }
-  }, [compiled, imports, onError]);
 
   if (exported == null) {
     return <></>;
@@ -125,11 +106,11 @@ function ErrorFallback({ error }: ErrorFallbackProps): JSX.Element {
   return (
     <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-75">
       <div className="flex items-center justify-center">
-        <div className="m-4 whitespace-pre w-3/4 p-4 font-mono rounded-lg bg-red-500 text-white">
+        <div className="m-4 w-3/4 p-4 font-mono rounded-lg bg-red-500 text-white">
           <div className="mb-2">
             <span className="text-lg">{`${error.name}: ${error.message}`}</span>
           </div>
-          <p className="p-2 overflow-x-scroll bg-gray-900 rounded-lg">
+          <p className="p-2 overflow-x-scroll bg-gray-900 rounded-lg whitespace-pre">
             {error.stack}
           </p>
         </div>
@@ -139,7 +120,7 @@ function ErrorFallback({ error }: ErrorFallbackProps): JSX.Element {
 }
 
 function DemoPageShellInternal(
-  { title, code, imports }: CompilerBaseProps,
+  { title, code }: CompilerBaseProps,
 ): JSX.Element {
   const isDarkMode = useDarkPreference();
 
@@ -155,7 +136,7 @@ function DemoPageShellInternal(
   const [debouncedState, setDebouncedState] = useState(state);
 
   useEffect(() => {
-    const timeout = requestAnimationFrame(() => {
+    const timeout = setTimeout(() => {
       setDebouncedState(state);
       setError(undefined);
       setRenderError((prev) => {
@@ -164,10 +145,10 @@ function DemoPageShellInternal(
         }
         return false;
       });
-    });
+    }, 250);
 
     return () => {
-      cancelAnimationFrame(timeout);
+      clearTimeout(timeout);
     };
   }, [state]);
 
@@ -204,7 +185,6 @@ function DemoPageShellInternal(
               <Compiler
                 title={title}
                 code={debouncedState}
-                imports={imports}
                 onError={setError}
               />
             </Suspense>
@@ -226,7 +206,6 @@ export default function DemoPageShell(
   {
     title,
     code,
-    imports,
     route,
   }: DemoPageShellProps,
 ): JSX.Element {
@@ -240,7 +219,6 @@ export default function DemoPageShell(
     <DemoPageShellInternal
       title={title}
       code={code}
-      imports={imports}
     />
   );
 }

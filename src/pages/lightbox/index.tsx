@@ -23,7 +23,7 @@ export default function Lightbox() {
             setLoading(false);
           }}
         />
-        {loading && <div className={\`\${expand ? 'w-3/4' : 'w-full absolute'} animate-pulse bg-gray-100 dark:bg-gray-900\`} />}
+        {loading && <div className={\`\${expand ? 'w-3/4' : 'w-full absolute'} h-full animate-pulse bg-gray-100 dark:bg-gray-900\`} />}
       </div>
     </div>
   );
@@ -35,7 +35,6 @@ export default function LightboxPattern(): JSX.Element {
     <DemoPageShell
       title="Lightbox"
       code={CODE}
-      imports={{}}
       route="/patterns/lightbox"
     />
   );

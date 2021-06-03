@@ -11,6 +11,8 @@ setup({
   darkMode: 'class',
 });
 
+window.React = React;
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -48,7 +48,7 @@ export default function SnippetPattern(): JSX.Element {
     <DemoPageShell
       title="Snippet"
       code={CODE}
-      imports={{}}
+      
       route="/patterns/snippet"
     />
   );

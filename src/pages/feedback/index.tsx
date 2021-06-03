@@ -55,7 +55,6 @@ export default function FeedbackPattern(): JSX.Element {
     <DemoPageShell
       title="Feedback"
       code={CODE}
-      imports={{}}
       route="/patterns/feedback"
     />
   );
