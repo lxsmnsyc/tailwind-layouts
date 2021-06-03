@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "extends": [
+    "lxsmnsyc/typescript/react"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "rules": {
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-eval": "off",
+    "@typescript-eslint/no-implied-eval": "off",
+    "no-new-func": "off"
+  }
+}
