@@ -1,4 +1,5 @@
 import * as esbuild from 'esbuild-wasm';
+import esbuildWASM from 'esbuild-wasm/esbuild.wasm?url';
 import React, { ComponentType, useState, useEffect } from 'react';
 import createResource from '../utils/create-resource';
 
@@ -16,7 +17,7 @@ interface ComponentExport {
 }
 
 const esbuildResource = createResource(() => esbuild.initialize({
-  wasmURL: 'https://unpkg.com/esbuild-wasm@0.12.5/esbuild.wasm',
+  wasmURL: esbuildWASM,
 }));
 
 export default function Compiler(
