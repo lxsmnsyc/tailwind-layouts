@@ -1,8 +1,8 @@
-import React from 'react';
-import DemoPageShell from '../../DemoPageShell';
+export const path = 'snippet';
 
-const CODE = `
+export const title = 'Snippet';
 
+export const code = `
 function Clipboard() {
   return (
     <svg
@@ -42,14 +42,3 @@ export default function Snippet() {
   );
 }
 `;
-
-export default function SnippetPattern(): JSX.Element {
-  return (
-    <DemoPageShell
-      title="Snippet"
-      code={CODE}
-      
-      route="/patterns/snippet"
-    />
-  );
-}

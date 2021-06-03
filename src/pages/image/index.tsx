@@ -1,13 +1,14 @@
-import React from 'react';
-import DemoPageShell from '../../DemoPageShell';
+export const path = 'image';
 
-const CODE = `
+export const title = 'Image';
+
+export const code = `
 export default function Image() {
   const [loading, setLoading] = React.useState(true);
 
   return (
     <div className="m-8 flex items-center justify-center flex-col">
-      <div className="w-full overflow-hidden flex items-center justify-center shadow-lg rounded-lg relative">
+      <div className="w-3/4 overflow-hidden flex items-center justify-center shadow-lg rounded-lg relative">
         <img
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
@@ -26,13 +27,3 @@ export default function Image() {
   );
 }
 `;
-
-export default function ImagePattern(): JSX.Element {
-  return (
-    <DemoPageShell
-      title="Image"
-      code={CODE}
-      route="/patterns/image"
-    />
-  );
-}

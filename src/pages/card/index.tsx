@@ -1,10 +1,11 @@
-import React from 'react';
-import DemoPageShell from '../../DemoPageShell';
+export const path = 'card';
 
-const CODE = `
+export const title = 'Card';
+
+export const code = `
 export default function Card() {
   return (
-    <div className="m-8 w-1/2 shadow-lg overflow-hidden flex items-start justify-start flex-col border rounded-lg">
+    <div className="m-8 w-1/2 h-auto shadow-lg flex items-start justify-start flex-col border rounded-lg">
       <div className="w-full flex items-center justify-center border-b">
         <img
           src="https://source.unsplash.com/1200x630/?forest"
@@ -31,13 +32,3 @@ export default function Card() {
   );
 }
 `;
-
-export default function CardPattern(): JSX.Element {
-  return (
-    <DemoPageShell
-      title="Card"
-      code={CODE}
-      route="/patterns/card"
-    />
-  );
-}

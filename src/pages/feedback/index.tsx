@@ -1,7 +1,8 @@
-import React from 'react';
-import DemoPageShell from '../../DemoPageShell';
+export const path = 'feedback';
 
-const CODE = `
+export const title = 'Feedback';
+
+export const code = `
 export default function Feedback() {
   return (
     <div className="m-8 shadow-lg flex items-start justify-start flex-col border rounded-lg">
@@ -49,13 +50,3 @@ export default function Feedback() {
   );
 }
 `;
-
-export default function FeedbackPattern(): JSX.Element {
-  return (
-    <DemoPageShell
-      title="Feedback"
-      code={CODE}
-      route="/patterns/feedback"
-    />
-  );
-}

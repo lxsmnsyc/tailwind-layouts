@@ -1,7 +1,8 @@
-import React from 'react';
-import DemoPageShell from '../../DemoPageShell';
+export const path = 'lightbox';
 
-const CODE = `
+export const title = 'Lightbox';
+
+export const code = `
 export default function Lightbox() {
   const [loading, setLoading] = React.useState(true);
   const [expand, setExpand] = React.useState(false);
@@ -29,13 +30,3 @@ export default function Lightbox() {
   );
 }
 `;
-
-export default function LightboxPattern(): JSX.Element {
-  return (
-    <DemoPageShell
-      title="Lightbox"
-      code={CODE}
-      route="/patterns/lightbox"
-    />
-  );
-}

@@ -3,10 +3,8 @@ import React, {
   useEffect,
   Suspense,
 } from 'react';
-import Editor from '@monaco-editor/react';
 import Spinner from './components/Spinner';
 import ErrorBoundary from './components/ErrorBoundary';
-import { useDarkPreference } from './components/ThemeAdapter';
 import Compiler, { CompilerBaseProps } from './components/Compiler';
 
 function Fallback(): JSX.Element {
@@ -43,11 +41,9 @@ function ErrorFallback({ error }: ErrorFallbackProps): JSX.Element {
   );
 }
 
-export default function DemoPageShell(
+export default function PreviewPageShell(
   { title, code }: CompilerBaseProps,
 ): JSX.Element {
-  const isDarkMode = useDarkPreference();
-
   const [state, setState] = useState<string | undefined>(code);
   const [error, setError] = useState<Error>();
   const [, setRenderError] = useState<boolean>(false);
@@ -77,47 +73,26 @@ export default function DemoPageShell(
   }, [state]);
 
   return (
-    <div className="overflow-hidden w-full flex-1 flex items-stretch justify-center flex-col">
-      <div className="flex-none flex items-center justify-between border-b">
-        <div className="p-4 font-bold text-xl">
-          <h2>{title}</h2>
-        </div>
-      </div>
-      <div className="sm:flex-row flex-col-reverse overflow-hidden  flex-grow flex items-stretch justify-center">
-        <div className="flex-1 relative">
-          <Editor
-            height="100%"
-            defaultLanguage="javascript"
-            theme={isDarkMode ? 'vs-dark' : 'light'}
-            value={debouncedState}
-            onChange={(value) => {
-              setState(value);
-            }}
-            loading={<Fallback />}
+    <div className="flex flex-col h-screen w-screen bg-white text-black dark:bg-black dark:text-white">
+      <ErrorBoundary
+        key={retryKey}
+        onError={(err) => {
+          setRenderError(true);
+          setError(err);
+        }}
+        fallback={error && <ErrorFallback error={error} />}
+      >
+        <Suspense fallback={<Fallback />}>
+          <Compiler
+            title={title}
+            code={debouncedState}
+            onError={setError}
           />
-        </div>
-        <div className="flex-1 overflow-scroll border-l relative">
-          <ErrorBoundary
-            key={retryKey}
-            onError={(err) => {
-              setRenderError(true);
-              setError(err);
-            }}
-            fallback={error && <ErrorFallback error={error} />}
-          >
-            <Suspense fallback={<Fallback />}>
-              <Compiler
-                title={title}
-                code={debouncedState}
-                onError={setError}
-              />
-            </Suspense>
-          </ErrorBoundary>
-          {
-            error && <ErrorFallback error={error} />
-          }
-        </div>
-      </div>
+        </Suspense>
+      </ErrorBoundary>
+      {
+        error && <ErrorFallback error={error} />
+      }
     </div>
   );
 }
