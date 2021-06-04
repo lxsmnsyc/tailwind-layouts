@@ -1,6 +1,6 @@
 # tailwind-layouts
 
-> A collection of Tailwind Layouts
+> A collection of [Tailwind](https://tailwindcss.com) Layouts
 
 ## Playground
 
@@ -13,6 +13,8 @@ The website includes a client-side playground which allows components to be rend
 ### Live Code
 
 `tailwind-layouts` uses [ESBuild](https://esbuild.github.io/) to transform and render the component in real-time. JSX and TypeScript is supported, but the compiled code is transformed into ES2017 for browser compatibility. The compiled code format is also in ESM.
+
+Since Tailwind only generates classes during build-time, `tailwind-layouts` instead uses [`twind`](https://twind.dev/) to generate classes on runtime, as well as add support for JIT.
 
 #### CDN Imports
 
