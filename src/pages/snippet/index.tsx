@@ -25,7 +25,7 @@ function Clipboard() {
 export default function Snippet() {
   return (
     <div className="m-8 border rounded-lg relative dark:border-gray-900">
-      <div className="p-4 overflow-x-scroll">
+      <div className="p-4 overflow-x-auto">
         <div className="font-mono text-sm whitespace-pre">
           {'() => <h1>Hello World</h1>'}
         </div>

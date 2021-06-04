@@ -15,7 +15,7 @@ export default function CompilerError({ error }: CompilerErrorProps): JSX.Elemen
           <div className="mb-2">
             <span className="text-lg">{`${error.name}: ${error.message}`}</span>
           </div>
-          <p className="p-2 overflow-x-scroll bg-gray-900 rounded-lg whitespace-pre">
+          <p className="p-2 overflow-x-auto bg-gray-900 rounded-lg whitespace-pre">
             {error.stack}
           </p>
         </div>

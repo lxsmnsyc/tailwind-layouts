@@ -63,7 +63,7 @@ export default function DemoPageShell(
             loading={<FullLoader />}
           />
         </div>
-        <div className="flex-1 overflow-scroll border-b dark:border-gray-900 md:border-l relative">
+        <div className="flex-1 overflow-auto border-b dark:border-gray-900 md:border-l relative">
           <ErrorBoundary
             key={retryKey}
             onError={(err) => {
