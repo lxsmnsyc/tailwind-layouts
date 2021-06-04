@@ -45,12 +45,12 @@ export default function DemoPageShell(
 
   return (
     <div className="overflow-hidden w-full h-screen flex-1 flex items-stretch justify-center flex-col">
-      <div className="flex-none flex items-center justify-between border-b">
+      <div className="flex-none flex items-center justify-between border-b dark:border-gray-900">
         <div className="p-4 font-bold text-xl">
           <h2>{title}</h2>
         </div>
       </div>
-      <div className="sm:flex-row flex-col-reverse overflow-hidden  flex-grow flex items-stretch justify-center">
+      <div className="sm:flex-row flex-col-reverse overflow-hidden flex-grow flex items-stretch justify-center">
         <div className="flex-1 relative">
           <Editor
             height="100%"
@@ -63,7 +63,7 @@ export default function DemoPageShell(
             loading={<FullLoader />}
           />
         </div>
-        <div className="flex-1 overflow-scroll border-b md:border-l relative">
+        <div className="flex-1 overflow-scroll border-b dark:border-gray-900 md:border-l relative">
           <ErrorBoundary
             key={retryKey}
             onError={(err) => {

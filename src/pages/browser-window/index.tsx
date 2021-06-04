@@ -43,8 +43,8 @@ function Refresh() {
 
 function BrowserWindow() {
   return (
-    <div className="m-8 h-3/4 overflow-hidden shadow-lg flex items-start justify-start flex-col border rounded-lg">
-      <div className="w-full flex items-center justify-start relative p-1 border-b">
+    <div className="m-8 h-3/4 overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-900 rounded-lg">
+      <div className="w-full flex items-center justify-start relative p-1 border-b dark:border-gray-900">
         <div className="p-1 flex items-center justify-center">
           <div className="bg-red-500 m-1 w-3 h-3 rounded-full" />
           <div className="bg-yellow-500 m-1 w-3 h-3 rounded-full" />

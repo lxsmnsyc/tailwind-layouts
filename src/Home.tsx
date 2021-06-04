@@ -13,8 +13,8 @@ function PatternCard({ href, title }: PatternCardProps): JSX.Element {
   return (
     <Link to={`/patterns/${href}`}>
       <a>
-        <div className="rounded-lg shadow-lg border m-2 overflow-hidden">
-          <div className="w-full h-auto border-b relative">
+        <div className="rounded-lg shadow-lg border dark:border-gray-900 m-2 overflow-hidden transition hover:scale-105 hover:text-gray-500 dark:hover:text-gray-400">
+          <div className="w-full h-auto border-b dark:border-gray-900 relative">
             <div className="w-[256px] h-[144px]">
               <iframe
                 title={title}
@@ -58,7 +58,7 @@ export default function Home(): JSX.Element {
           />
         ))}
       </div>
-      <div className="flex-none px-8 py-4 w-full border-t">
+      <div className="flex-none px-8 py-4 w-full border-t border-gray-900">
         <span>
           {'MIT © '}
           <a href="https://github.com/lxsmnsyc">lxsmnsyc</a>

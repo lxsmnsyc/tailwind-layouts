@@ -5,8 +5,8 @@ export const title = 'Feedback';
 export const code = `
 export default function Feedback() {
   return (
-    <div className="m-8 shadow-lg flex items-start justify-start flex-col border rounded-lg">
-      <div className="w-full border-b px-4 py-2">
+    <div className="m-8 shadow-lg flex items-start justify-start flex-col border dark:border-gray-900 rounded-lg">
+      <div className="w-full border-b px-4 py-2 dark:border-gray-900">
         <span className="uppercase text-xs text-gray-500 dark:text-gray-400 font-semibold">Feedback</span>
         <textarea className="mt-2 w-full rounded p-2 outline-none ring-2 ring-purple-300 dark:ring-purple-700 focus-visible:ring-purple-500 dark:bg-black" />
       </div>
