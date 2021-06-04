@@ -28,7 +28,13 @@ export default function AvatarDemo() {
       <div className="w-32 h-32 m-1">
         <Avatar src="https://source.unsplash.com/256x256" />
       </div>
+      <div className="w-24 h-24 m-1">
+        <Avatar src="https://source.unsplash.com/256x256" />
+      </div>
       <div className="w-16 h-16 m-1">
+        <Avatar src="https://source.unsplash.com/256x256" />
+      </div>
+      <div className="w-12 h-12 m-1">
         <Avatar src="https://source.unsplash.com/256x256" />
       </div>
       <div className="w-8 h-8 m-1">
