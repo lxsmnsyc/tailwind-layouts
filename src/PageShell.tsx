@@ -9,8 +9,8 @@ interface PageShellProps {
 
 export default function PageShell({ children }: PageShellProps): JSX.Element {
   return (
-    <div className="flex flex-col w-full h-screen bg-white text-black dark:bg-black dark:text-white">
-      <div className="flex-none flex flex-row justify-between items-center border-b">
+    <div className="flex flex-col w-full min-h-screen bg-white text-black dark:bg-black dark:text-white">
+      <div className="sticky top-0 z-50 flex flex-row justify-between items-center border-b backdrop-filter backdrop-blur">
         <div className="p-4">
           <Link to="/">
             <a className="text-2xl font-bold">Tailwind Layouts</a>
