@@ -58,7 +58,7 @@ export default function Home(): JSX.Element {
           />
         ))}
       </div>
-      <div className="flex-none px-8 py-4 w-full border-t border-gray-900">
+      <div className="flex-none px-8 py-4 w-full border-t dark:border-gray-900">
         <span>
           {'MIT © '}
           <a href="https://github.com/lxsmnsyc">lxsmnsyc</a>
