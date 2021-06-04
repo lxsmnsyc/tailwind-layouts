@@ -7,6 +7,7 @@ import * as appWindow from './app-window';
 import * as browserWindow from './browser-window';
 import * as avatar from './avatar';
 import * as diagonalSection from './diagonal-section';
+import * as notification from './notification';
 
 interface Page {
   path: string;
@@ -24,6 +25,7 @@ const PAGES: Record<string, Page> = {
   [browserWindow.path]: browserWindow,
   [avatar.path]: avatar,
   [diagonalSection.path]: diagonalSection,
+  [notification.path]: notification,
 };
 
 export default PAGES;
