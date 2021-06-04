@@ -5,6 +5,7 @@ import * as lightbox from './lightbox';
 import * as snippet from './snippet';
 import * as appWindow from './app-window';
 import * as browserWindow from './browser-window';
+import * as avatar from './avatar';
 
 interface Page {
   path: string;
@@ -20,6 +21,7 @@ const PAGES: Record<string, Page> = {
   [snippet.path]: snippet,
   [appWindow.path]: appWindow,
   [browserWindow.path]: browserWindow,
+  [avatar.path]: avatar,
 };
 
 export default PAGES;
