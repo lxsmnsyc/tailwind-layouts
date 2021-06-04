@@ -8,30 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { useDarkPreference } from './components/ThemeAdapter';
 import Compiler, { CompilerBaseProps } from './components/Compiler';
 import FullLoader from './components/FullLoader';
-
-interface ErrorFallbackProps {
-  error?: Error;
-}
-
-function ErrorFallback({ error }: ErrorFallbackProps): JSX.Element {
-  if (error == null) {
-    return <></>;
-  }
-  return (
-    <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-75">
-      <div className="flex items-center justify-center">
-        <div className="m-4 w-3/4 p-4 font-mono rounded-lg bg-red-500 text-white">
-          <div className="mb-2">
-            <span className="text-lg">{`${error.name}: ${error.message}`}</span>
-          </div>
-          <p className="p-2 overflow-x-scroll bg-gray-900 rounded-lg whitespace-pre">
-            {error.stack}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+import CompilerError from './components/CompilerError';
 
 export default function DemoPageShell(
   { title, code }: CompilerBaseProps,
@@ -67,7 +44,7 @@ export default function DemoPageShell(
   }, [state]);
 
   return (
-    <div className="overflow-hidden w-full flex-1 flex items-stretch justify-center flex-col">
+    <div className="overflow-hidden w-full h-screen flex-1 flex items-stretch justify-center flex-col">
       <div className="flex-none flex items-center justify-between border-b">
         <div className="p-4 font-bold text-xl">
           <h2>{title}</h2>
@@ -86,14 +63,14 @@ export default function DemoPageShell(
             loading={<FullLoader />}
           />
         </div>
-        <div className="flex-1 overflow-scroll border-l relative">
+        <div className="flex-1 overflow-scroll border-b md:border-l relative">
           <ErrorBoundary
             key={retryKey}
             onError={(err) => {
               setRenderError(true);
               setError(err);
             }}
-            fallback={error && <ErrorFallback error={error} />}
+            fallback={error && <CompilerError error={error} />}
           >
             <Suspense fallback={<FullLoader />}>
               <Compiler
@@ -104,7 +81,7 @@ export default function DemoPageShell(
             </Suspense>
           </ErrorBoundary>
           {
-            error && <ErrorFallback error={error} />
+            error && <CompilerError error={error} />
           }
         </div>
       </div>
