@@ -56,7 +56,7 @@ export default function DemoPageShell(
             height="100%"
             defaultLanguage="javascript"
             theme={isDarkMode ? 'vs-dark' : 'light'}
-            value={debouncedState}
+            defaultValue={code}
             onChange={(value) => {
               setState(value);
             }}

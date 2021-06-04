@@ -6,6 +6,7 @@ import * as snippet from './snippet';
 import * as appWindow from './app-window';
 import * as browserWindow from './browser-window';
 import * as avatar from './avatar';
+import * as diagonalSection from './diagonal-section';
 
 interface Page {
   path: string;
@@ -22,6 +23,7 @@ const PAGES: Record<string, Page> = {
   [appWindow.path]: appWindow,
   [browserWindow.path]: browserWindow,
   [avatar.path]: avatar,
+  [diagonalSection.path]: diagonalSection,
 };
 
 export default PAGES;
