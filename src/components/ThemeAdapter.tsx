@@ -67,13 +67,22 @@ const ThemeAdapter: FC = ({ children }) => {
   // Since storage events only work for other windows
   // we need to make the main window sync
   useEffect(() => {
-    const value = localStorage.getItem(STORAGE_KEY);
+    const onChange = () => {
+      const value = localStorage.getItem(STORAGE_KEY);
 
-    if (value) {
-      setLocal(value as ThemePreference);
-    } else {
-      setLocal('system');
-    }
+      if (value) {
+        setLocal(value as ThemePreference);
+      } else {
+        setLocal('system');
+      }
+    };
+    window.addEventListener('storage', onChange, false);
+
+    onChange();
+
+    return () => {
+      window.removeEventListener('storage', onChange, false);
+    };
   }, [visibility]);
 
   const setPreference = useConstantCallback((value: ThemePreference) => {
