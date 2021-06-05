@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Link, useRoute } from 'wouter';
-import Preview from './components/Preview';
 import PAGES from './pages';
+
+const Preview = lazy(() => import('./components/Preview'));
 
 interface PatternCardProps {
   title: string;
@@ -19,13 +20,15 @@ function PatternCard({ href, title, code }: PatternCardProps): JSX.Element {
           <div className="w-full h-auto border-b dark:border-gray-800 relative overflow-hidden">
             <div className="w-[256px] h-[144px]">
               <div className={`w-[512px] h-[288px] transform-gpu scale-50 origin-top-left transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}>
-                <Preview
-                  title={title}
-                  code={code}
-                  onLoad={() => {
-                    setLoading(false);
-                  }}
-                />
+                <Suspense fallback={null}>
+                  <Preview
+                    title={title}
+                    code={code}
+                    onLoad={() => {
+                      setLoading(false);
+                    }}
+                  />
+                </Suspense>
               </div>
             </div>
             {loading && <div className="absolute top-0 w-full h-full animate-pulse bg-gray-100 dark:bg-gray-900" />}
