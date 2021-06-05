@@ -6,7 +6,7 @@ export const code = `
 export default function Navbar() {
   return (
     <div className="m-8">
-      <div className="w-full border dark:border-gray-900 flex items-center justify-between shadow-lg">
+      <div className="w-full border dark:border-gray-800 flex items-center justify-between shadow-lg">
         <div className="p-4">
           <a href="#" className="text-xl font-bold">
             Title

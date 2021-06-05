@@ -45,7 +45,7 @@ export default function DemoPageShell(
 
   return (
     <div className="overflow-hidden w-full h-screen flex-1 flex items-stretch justify-center flex-col">
-      <div className="flex-none flex items-center justify-between border-b dark:border-gray-900">
+      <div className="flex-none flex items-center justify-between border-b dark:border-gray-800">
         <div className="p-4 font-bold text-xl">
           <h2>{title}</h2>
         </div>
@@ -63,7 +63,7 @@ export default function DemoPageShell(
             loading={<FullLoader />}
           />
         </div>
-        <div className="flex-1 overflow-auto border-b dark:border-gray-900 md:border-l relative">
+        <div className="flex-1 overflow-auto border-b dark:border-gray-800 md:border-l relative">
           <ErrorBoundary
             key={retryKey}
             onError={(err) => {
@@ -77,6 +77,7 @@ export default function DemoPageShell(
                 title={title}
                 code={debouncedState}
                 onError={setError}
+                onLoad={() => { /* no-op */ }}
               />
             </Suspense>
           </ErrorBoundary>
