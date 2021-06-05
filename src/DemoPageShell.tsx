@@ -24,12 +24,15 @@ export default function DemoPageShell(
     setState(code);
   }, [code]);
 
+  useEffect(() => {
+    setError(undefined);
+  }, [state]);
+
   const [debouncedState, setDebouncedState] = useState(state);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setDebouncedState(state);
-      setError(undefined);
       setRenderError((prev) => {
         if (prev) {
           setRetryKey((key) => key + 1);
@@ -57,9 +60,7 @@ export default function DemoPageShell(
             defaultLanguage="javascript"
             theme={isDarkMode ? 'vs-dark' : 'light'}
             defaultValue={code}
-            onChange={(value) => {
-              setState(value);
-            }}
+            onChange={setState}
             loading={<FullLoader />}
           />
         </div>
@@ -77,7 +78,6 @@ export default function DemoPageShell(
                 title={title}
                 code={debouncedState}
                 onError={setError}
-                onLoad={() => { /* no-op */ }}
               />
             </Suspense>
           </ErrorBoundary>

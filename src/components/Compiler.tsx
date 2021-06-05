@@ -10,7 +10,7 @@ export interface CompilerBaseProps {
 
 export interface CompilerProps extends CompilerBaseProps {
   onError: (error: Error) => void;
-  onLoad: () => void;
+  onLoad?: () => void;
 }
 
 interface ComponentExport {
@@ -44,13 +44,15 @@ export default function Compiler(
         jsxFragment: 'React.Fragment',
         loader: 'jsx',
         globalName: 'Component',
+        sourcemap: 'inline',
+        minify: true,
       }).then((result) => {
         if (mounted) {
           const encodedJs = encodeURIComponent(result.code);
           const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
           return import(/* @vite-ignore */dataUri).then((mod: ComponentExport) => {
             setExported(mod);
-            onLoad();
+            onLoad?.();
           });
         }
         return undefined;
