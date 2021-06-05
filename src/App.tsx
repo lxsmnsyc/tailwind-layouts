@@ -7,13 +7,12 @@ import PAGES from './pages';
 import FullLoader from './components/FullLoader';
 
 const DemoPageShell = lazy(() => import('./DemoPageShell'));
-const PreviewPageShell = lazy(() => import('./PreviewPageShell'));
 
 interface InternalParams extends Record<string, string> {
   id: string
 }
 
-function Pattern(): JSX.Element {
+function Internal(): JSX.Element {
   const [match, params] = useRoute<InternalParams>('/patterns/:id');
 
   if (match && params) {
@@ -33,25 +32,6 @@ function Pattern(): JSX.Element {
     <PageShell>
       <Home />
     </PageShell>
-  );
-}
-
-function Internal(): JSX.Element {
-  const [match, params] = useRoute<InternalParams>('/preview/:id');
-
-  if (match && params) {
-    return (
-      <Suspense fallback={<FullLoader />}>
-        <PreviewPageShell
-          title={PAGES[params.id].title}
-          code={PAGES[params.id].code}
-        />
-      </Suspense>
-    );
-  }
-
-  return (
-    <Pattern />
   );
 }
 

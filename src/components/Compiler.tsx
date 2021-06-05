@@ -10,6 +10,7 @@ export interface CompilerBaseProps {
 
 export interface CompilerProps extends CompilerBaseProps {
   onError: (error: Error) => void;
+  onLoad: () => void;
 }
 
 interface ComponentExport {
@@ -25,6 +26,7 @@ export default function Compiler(
     code,
     title,
     onError,
+    onLoad,
   }: CompilerProps,
 ): JSX.Element {
   esbuildResource.read();
@@ -48,6 +50,7 @@ export default function Compiler(
           const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
           return import(/* @vite-ignore */dataUri).then((mod: ComponentExport) => {
             setExported(mod);
+            onLoad();
           });
         }
         return undefined;
@@ -59,7 +62,7 @@ export default function Compiler(
     return () => {
       mounted = false;
     };
-  }, [code, title, onError]);
+  }, [code, title, onError, onLoad]);
 
   if (exported == null) {
     return <></>;
