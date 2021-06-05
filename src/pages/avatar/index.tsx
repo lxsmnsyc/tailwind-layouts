@@ -25,7 +25,7 @@ function Avatar({ src }) {
 
 export default function AvatarDemo() {
   return (
-    <div className="m-8 flex items-center justify-center flex-row">
+    <div className="p-8 w-full h-full flex items-center justify-center flex-row">
       <div className="w-32 h-32 m-1">
         <Avatar src="https://source.unsplash.com/256x256" />
       </div>

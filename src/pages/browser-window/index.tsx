@@ -43,34 +43,36 @@ function Refresh() {
 
 function BrowserWindow() {
   return (
-    <div className="m-8 h-3/4 overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
-      <div className="w-full flex items-center justify-start relative p-1 border-b dark:border-gray-800">
-        <div className="p-1 flex items-center justify-center">
-          <div className="bg-red-500 m-1 w-3 h-3 rounded-full" />
-          <div className="bg-yellow-500 m-1 w-3 h-3 rounded-full" />
-          <div className="bg-green-500 m-1 w-3 h-3 rounded-full" />
+    <div className="p-8 w-full h-full flex items-center justify-center">
+      <div className="w-full h-full overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
+        <div className="w-full flex items-center justify-start relative p-1 border-b dark:border-gray-800">
+          <div className="p-1 flex items-center justify-center">
+            <div className="bg-red-500 m-1 w-3 h-3 rounded-full" />
+            <div className="bg-yellow-500 m-1 w-3 h-3 rounded-full" />
+            <div className="bg-green-500 m-1 w-3 h-3 rounded-full" />
+          </div>
+          <div className="w-full flex items-center justify-center absolute left-0">
+            <a
+              href="https://tailwindcss.com"
+              className="text-xs bg-gray-100 dark:bg-gray-900 w-1/2 rounded-lg py-1 flex justify-between items-center"
+            >
+              <div className="flex items-center justify-center pl-4">
+                <span className="text-green-500 w-4 h-4 mr-2"><Lock /></span>
+                <span className="">{'tailwindcss.com'}</span>
+              </div>
+              <div className="flex pr-4">
+                <span className="text-gray-500 w-4 h-4"><Refresh /></span>
+              </div>
+            </a>
+          </div>
         </div>
-        <div className="w-full flex items-center justify-center absolute left-0">
-          <a
-            href="https://tailwindcss.com"
-            className="text-xs bg-gray-100 dark:bg-gray-900 w-1/2 rounded-lg py-1 flex justify-between items-center"
-          >
-            <div className="flex items-center justify-center pl-4">
-              <span className="text-green-500 w-4 h-4 mr-2"><Lock /></span>
-              <span className="">{'tailwindcss.com'}</span>
-            </div>
-            <div className="flex pr-4">
-              <span className="text-gray-500 w-4 h-4"><Refresh /></span>
-            </div>
-          </a>
+        <div className="w-full h-full">
+          <iframe
+            title="TaildwindCSS"
+            src="https://tailwindcss.com"
+            className="w-full h-full"
+          />
         </div>
-      </div>
-      <div className="w-full h-full">
-        <iframe
-          title="TaildwindCSS"
-          src="https://tailwindcss.com"
-          className="w-full h-full"
-        />
       </div>
     </div>
   );

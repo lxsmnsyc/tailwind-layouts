@@ -14,7 +14,7 @@ function DiagonalSection({ children }) {
 
 export default function DiagonalSectionExample() {
   return (
-    <div className="my-8">
+    <div className="py-8 w-full h-full flex items-center justify-center">
       <DiagonalSection>
         <div className="w-full h-full flex flex-col items-center justify-center">
           <span className="text-xl text-white z-10">Lorem Ipsum</span>
