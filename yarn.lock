@@ -320,6 +320,11 @@
   resolved "https://registry.yarnpkg.com/@tailwindcss/aspect-ratio/-/aspect-ratio-0.2.1.tgz#a7ce776688b8218d9559a6918f0bccc58f0f16dd"
   integrity sha512-aDFi80aHQ3JM3symJ5iKU70lm151ugIGFCI0yRZGpyjgQSDS+Fbe93QwypC1tCEllQE8p0S7TUu20ih1b9IKLA==
 
+"@twind/aspect-ratio@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@twind/aspect-ratio/-/aspect-ratio-0.1.4.tgz#4a294e3e44f636a0a4c326f2efec5dc4387f93cf"
+  integrity sha512-R8kHG8l3NV5dIcBn7LpP4a/qFNAb9+3wFk+OPucHJyygffiM31vji/udSTSaXthbvVXuj1n4sDNGuZv0wxwKHg==
+
 "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.7":
   version "7.0.7"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"

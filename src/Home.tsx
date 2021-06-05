@@ -15,11 +15,11 @@ function PatternCard({ href, title, code }: PatternCardProps): JSX.Element {
 
   return (
     <Link to={`/patterns/${href}`}>
-      <a>
+      <a className="w-full md:w-1/3 lg:w-1/4">
         <div className="rounded-lg shadow-lg border dark:border-gray-800 m-2 overflow-hidden transition hover:scale-105 hover:text-gray-500 dark:hover:text-gray-400">
           <div className="w-full h-auto border-b dark:border-gray-800 relative overflow-hidden">
-            <div className="w-[256px] h-[144px]">
-              <div className={`w-[512px] h-[288px] transform-gpu scale-50 origin-top-left transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}>
+            <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
+              <div className={`absolute w-[200%] h-[200%] top-0 left-0 transform-gpu scale-50 origin-top-left transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}>
                 <Suspense fallback={null}>
                   <Preview
                     title={title}
