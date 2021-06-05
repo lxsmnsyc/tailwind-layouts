@@ -3,7 +3,10 @@ export const path = 'image';
 export const title = 'Image';
 
 export const code = `
-export default function Image() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Image() {
   const [loading, setLoading] = React.useState(true);
 
   return (
@@ -28,5 +31,13 @@ export default function Image() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Image />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

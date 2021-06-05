@@ -3,6 +3,9 @@ export const path = 'avatar';
 export const title = 'Avatar';
 
 export const code = `
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
 function Avatar({ src }) {
   const [loading, setLoading] = React.useState(true);
 
@@ -23,7 +26,7 @@ function Avatar({ src }) {
   );
 }
 
-export default function AvatarDemo() {
+function AvatarDemo() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center flex-row">
       <div className="w-32 h-32 m-1">
@@ -46,5 +49,13 @@ export default function AvatarDemo() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<AvatarDemo />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

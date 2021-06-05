@@ -3,7 +3,10 @@ export const path = 'tag';
 export const title = 'Tag';
 
 export const code = `
-export default function Tag() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Tag() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center flex-col">
       <div className="flex items-center justify-start">
@@ -68,5 +71,13 @@ export default function Tag() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Tag />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

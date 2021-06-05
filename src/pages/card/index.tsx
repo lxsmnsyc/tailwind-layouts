@@ -3,7 +3,10 @@ export const path = 'card';
 export const title = 'Card';
 
 export const code = `
-export default function Card() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Card() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div className="w-1/2 h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
@@ -33,5 +36,13 @@ export default function Card() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Card />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

@@ -3,6 +3,9 @@ export const path = 'diagonal-section';
 export const title = 'Diagonal Section';
 
 export const code = `
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
 function DiagonalSection({ children }) {
   return (
     <div className="relative w-full h-64">
@@ -12,7 +15,7 @@ function DiagonalSection({ children }) {
   );
 }
 
-export default function DiagonalSectionExample() {
+function DiagonalSectionExample() {
   return (
     <div className="py-8 w-full h-full flex items-center justify-center">
       <DiagonalSection>
@@ -22,5 +25,13 @@ export default function DiagonalSectionExample() {
       </DiagonalSection>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<DiagonalSectionExample />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

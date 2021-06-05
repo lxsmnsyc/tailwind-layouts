@@ -3,6 +3,9 @@ export const path = 'snippet';
 export const title = 'Snippet';
 
 export const code = `
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
 function Clipboard() {
   return (
     <svg
@@ -22,7 +25,7 @@ function Clipboard() {
   );
 }
 
-export default function Snippet() {
+function Snippet() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div className="w-full border rounded-lg relative dark:border-gray-800">
@@ -43,5 +46,13 @@ export default function Snippet() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Snippet />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

@@ -3,7 +3,10 @@ export const path = 'notification';
 export const title = 'Notification';
 
 export const code = `
-export default function Notification() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Notification() {
   return (
     <div className="m-2 flex flex-col">
       <div className="m-2 border border-gray-400 dark:border-gray-500 rounded-lg relative bg-gray-200 dark:bg-gray-700">
@@ -33,5 +36,13 @@ export default function Notification() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Notification />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

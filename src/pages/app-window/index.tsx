@@ -3,6 +3,9 @@ export const path = 'app-window';
 export const title = 'App Window';
 
 export const code = `
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
 function AppWindow() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
@@ -27,5 +30,11 @@ function AppWindow() {
   );
 }
 
-export default AppWindow;
+export default function renderApp(root) {
+  ReactDOM.render(<AppWindow />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
+}
 `;

@@ -3,7 +3,10 @@ export const path = 'lightbox';
 export const title = 'Lightbox';
 
 export const code = `
-export default function Lightbox() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Lightbox() {
   const [loading, setLoading] = React.useState(true);
   const [expand, setExpand] = React.useState(false);
 
@@ -29,5 +32,13 @@ export default function Lightbox() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Lightbox />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

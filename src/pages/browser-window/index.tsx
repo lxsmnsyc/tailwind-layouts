@@ -3,6 +3,9 @@ export const path = 'browser-window';
 export const title = 'Browser Window';
 
 export const code = `
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
 function Lock() {
   return (
     <svg
@@ -78,5 +81,11 @@ function BrowserWindow() {
   );
 }
 
-export default BrowserWindow;
+export default function renderApp(root) {
+  ReactDOM.render(<BrowserWindow />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
+}
 `;

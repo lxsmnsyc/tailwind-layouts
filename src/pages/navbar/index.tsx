@@ -3,7 +3,10 @@ export const path = 'navbar';
 export const title = 'Navbar';
 
 export const code = `
-export default function Navbar() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Navbar() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div className="w-full border dark:border-gray-800 flex items-center justify-between shadow-lg">
@@ -26,5 +29,13 @@ export default function Navbar() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Navbar />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

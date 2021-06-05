@@ -3,7 +3,10 @@ export const path = 'feedback';
 export const title = 'Feedback';
 
 export const code = `
-export default function Feedback() {
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+function Feedback() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div className="w-full shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
@@ -50,5 +53,13 @@ export default function Feedback() {
       </div>
     </div>
   );
+}
+
+export default function renderApp(root) {
+  ReactDOM.render(<Feedback />, root);
+
+  return () => {
+    ReactDOM.unmountComponentAtNode(root);
+  };
 }
 `;

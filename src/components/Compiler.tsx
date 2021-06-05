@@ -1,6 +1,6 @@
 import * as esbuild from 'esbuild-wasm';
 import esbuildWASM from 'esbuild-wasm/esbuild.wasm?url';
-import React, { ComponentType, useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import createResource from '../utils/create-resource';
 
 export interface CompilerBaseProps {
@@ -13,8 +13,10 @@ export interface CompilerProps extends CompilerBaseProps {
   onLoad?: () => void;
 }
 
+type ExportCleanup = (() => void) | undefined | void; 
+
 interface ComponentExport {
-  default: ComponentType;
+  default: (root: HTMLDivElement) => ExportCleanup;
 }
 
 const esbuildResource = createResource(() => esbuild.initialize({
@@ -31,12 +33,20 @@ export default function Compiler(
 ): JSX.Element {
   esbuildResource.read();
 
-  const [exported, setExported] = useState<ComponentExport>();
+  const container = useRef<HTMLDivElement | null>(null);
+  const cleanup = useRef<ExportCleanup>();
+
+  useEffect(() => () => {
+    if (cleanup.current) {
+      cleanup.current();
+    }
+  }, []);
 
   useEffect(() => {
     let mounted = true;
 
-    if (code) {
+    if (code && container.current) {
+      const { current } = container;
       esbuild.transform(code, {
         format: 'esm',
         target: 'es2017',
@@ -50,7 +60,10 @@ export default function Compiler(
           const encodedJs = encodeURIComponent(result.code);
           const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
           return import(/* @vite-ignore */dataUri).then((mod: ComponentExport) => {
-            setExported(mod);
+            if (cleanup.current) {
+              cleanup.current();
+            }
+            cleanup.current = mod.default(current);
             onLoad?.();
           });
         }
@@ -65,17 +78,7 @@ export default function Compiler(
     };
   }, [code, title, onError, onLoad]);
 
-  if (exported == null) {
-    return <></>;
-  }
-
-  const { default: Component } = exported;
-
-  if (Component == null) {
-    return <></>;
-  }
-
   return (
-    <Component />
+    <div ref={container} className="w-full h-full" />
   );
 }
