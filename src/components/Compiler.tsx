@@ -45,7 +45,6 @@ export default function Compiler(
         loader: 'jsx',
         globalName: 'Component',
         sourcemap: 'inline',
-        minify: true,
       }).then((result) => {
         if (mounted) {
           const encodedJs = encodeURIComponent(result.code);
