@@ -9,6 +9,7 @@ export default function Card() {
       <div className="w-1/2 h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div className="w-full flex items-center justify-center border-b dark:border-gray-800">
           <img
+            alt="Forest"
             src="https://source.unsplash.com/1200x630/?forest"
             width="1200"
             height="630"

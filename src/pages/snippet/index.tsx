@@ -35,6 +35,7 @@ export default function Snippet() {
           type="button"
           className="w-8 h-8 border dark:border-gray-800 text-gray-500 dark:text-gray-400 border-gray-300 rounded p-1 hover:border-gray-200 dark:hover:border-gray-700 hover:text-gray-400 dark:hover:text-gray-500"
         >
+          <span className="sr-only">Copy to clipboard</span>
           <Clipboard />
         </button>
       </div>

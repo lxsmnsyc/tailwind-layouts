@@ -16,6 +16,7 @@ export default function Lightbox() {
         }}
       >
         <img
+          alt="Forest"
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
           height="630"

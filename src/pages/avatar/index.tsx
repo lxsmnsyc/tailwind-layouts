@@ -9,6 +9,7 @@ function Avatar({ src }) {
   return (
     <div className="relative rounded-full w-full h-full overflow-hidden shadow">
       <img
+        alt="Avatar"
         src={src}
         width="256"
         height="256"

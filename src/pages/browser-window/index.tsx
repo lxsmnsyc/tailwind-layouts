@@ -66,7 +66,11 @@ function BrowserWindow() {
         </div>
       </div>
       <div className="w-full h-full">
-        <iframe src="https://tailwindcss.com" className="w-full h-full" />
+        <iframe
+          title="TaildwindCSS"
+          src="https://tailwindcss.com"
+          className="w-full h-full"
+        />
       </div>
     </div>
   );

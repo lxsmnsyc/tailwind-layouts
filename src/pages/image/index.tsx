@@ -10,6 +10,7 @@ export default function Image() {
     <div className="m-8 flex items-center justify-center flex-col">
       <div className="w-3/4 overflow-hidden flex items-center justify-center shadow-lg rounded-lg relative">
         <img
+          alt="Forest"
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
           height="630"
