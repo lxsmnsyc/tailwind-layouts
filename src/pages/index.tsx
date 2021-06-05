@@ -9,6 +9,7 @@ import * as avatar from './avatar';
 import * as diagonalSection from './diagonal-section';
 import * as notification from './notification';
 import * as navbar from './navbar';
+import * as tag from './tag';
 
 interface Page {
   path: string;
@@ -28,6 +29,7 @@ const PAGES: Record<string, Page> = {
   [diagonalSection.path]: diagonalSection,
   [notification.path]: notification,
   [navbar.path]: navbar,
+  [tag.path]: tag,
 };
 
 export default PAGES;
