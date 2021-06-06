@@ -1,7 +1,8 @@
 import * as esbuild from 'esbuild-wasm';
 import esbuildWASM from 'esbuild-wasm/esbuild.wasm?url';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import createResource from '../utils/create-resource';
+import { useEnvironmentState } from './Environment';
 
 export interface CompilerBaseProps {
   code?: string;
@@ -13,7 +14,7 @@ export interface CompilerProps extends CompilerBaseProps {
   onLoad?: () => void;
 }
 
-type ExportCleanup = (() => void) | undefined | void; 
+type ExportCleanup = (() => void) | undefined | void;
 
 interface ComponentExport {
   default: (root: HTMLDivElement) => ExportCleanup;
@@ -33,8 +34,14 @@ export default function Compiler(
 ): JSX.Element {
   esbuildResource.read();
 
-  const container = useRef<HTMLDivElement | null>(null);
+  const environment = useEnvironmentState();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const cleanup = useRef<ExportCleanup>();
+
+  useEffect(() => {
+    setRefreshKey((current) => current + 1);
+  }, [environment]);
 
   useEffect(() => () => {
     if (cleanup.current) {
@@ -45,8 +52,7 @@ export default function Compiler(
   useEffect(() => {
     let mounted = true;
 
-    if (code && container.current) {
-      const { current } = container;
+    if (code && container) {
       esbuild.transform(code, {
         format: 'esm',
         target: 'es2017',
@@ -61,9 +67,14 @@ export default function Compiler(
           const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
           return import(/* @vite-ignore */dataUri).then((mod: ComponentExport) => {
             if (cleanup.current) {
-              cleanup.current();
+              try {
+                cleanup.current();
+              } catch (error) {
+                cleanup.current = undefined;
+                throw error;
+              }
             }
-            cleanup.current = mod.default(current);
+            cleanup.current = mod.default(container);
             onLoad?.();
           });
         }
@@ -76,9 +87,9 @@ export default function Compiler(
     return () => {
       mounted = false;
     };
-  }, [code, title, onError, onLoad]);
+  }, [code, title, onError, onLoad, container]);
 
   return (
-    <div ref={container} className="w-full h-full" />
+    <div key={refreshKey} ref={setContainer} className="w-full h-full" />
   );
 }

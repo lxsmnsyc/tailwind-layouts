@@ -5,6 +5,7 @@ import ThemeAdapter from './components/ThemeAdapter';
 import Home from './Home';
 import PAGES from './pages';
 import FullLoader from './components/FullLoader';
+import { EnvironmentAdapter } from './components/Environment';
 
 const DemoPageShell = lazy(() => import('./DemoPageShell'));
 
@@ -37,8 +38,10 @@ function Internal(): JSX.Element {
 
 export default function App(): JSX.Element {
   return (
-    <ThemeAdapter>
-      <Internal />
-    </ThemeAdapter>
+    <EnvironmentAdapter>
+      <ThemeAdapter>
+        <Internal />
+      </ThemeAdapter>
+    </EnvironmentAdapter>
   );
 }

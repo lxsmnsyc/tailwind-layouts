@@ -1,21 +1,23 @@
-import * as card from './card';
-import * as feedback from './feedback';
-import * as image from './image';
-import * as lightbox from './lightbox';
-import * as snippet from './snippet';
-import * as appWindow from './app-window';
-import * as browserWindow from './browser-window';
-import * as avatar from './avatar';
-import * as diagonalSection from './diagonal-section';
-import * as notification from './notification';
-import * as navbar from './navbar';
-import * as tag from './tag';
+import card from './card';
+import feedback from './feedback';
+import image from './image';
+import lightbox from './lightbox';
+import snippet from './snippet';
+import appWindow from './app-window';
+import browserWindow from './browser-window';
+import avatar from './avatar';
+import diagonalSection from './diagonal-section';
+import notification from './notification';
+import navbar from './navbar';
+import tag from './tag';
 
-interface Page {
-  path: string;
-  title: string;
-  code: string;
-}
+import { Project, Page } from './types';
+
+export const ENVIRONMENTS: Project = {
+  react: 'React',
+  'vue-3': 'Vue 3',
+  'lit-html': 'lit-html',
+};
 
 const PAGES: Record<string, Page> = {
   [card.path]: card,

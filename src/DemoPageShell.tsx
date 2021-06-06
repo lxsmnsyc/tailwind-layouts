@@ -6,16 +6,24 @@ import React, {
 import Editor from '@monaco-editor/react';
 import ErrorBoundary from './components/ErrorBoundary';
 import { useDarkPreference } from './components/ThemeAdapter';
-import Compiler, { CompilerBaseProps } from './components/Compiler';
+import Compiler from './components/Compiler';
 import FullLoader from './components/FullLoader';
 import CompilerError from './components/CompilerError';
+import { Project } from './pages/types';
+import { useEnvironmentState } from './components/Environment';
+
+interface DemoPageShellProps {
+  title: string;
+  code: Project;
+}
 
 export default function DemoPageShell(
-  { title, code }: CompilerBaseProps,
+  { title, code }: DemoPageShellProps,
 ): JSX.Element {
   const isDarkMode = useDarkPreference();
+  const environment = useEnvironmentState();
 
-  const [state, setState] = useState<string | undefined>(code);
+  const [state, setState] = useState<Project>(code);
   const [error, setError] = useState<Error>();
   const [, setRenderError] = useState<boolean>(false);
   const [retryKey, setRetryKey] = useState(0);
@@ -59,8 +67,14 @@ export default function DemoPageShell(
             height="100%"
             defaultLanguage="javascript"
             theme={isDarkMode ? 'vs-dark' : 'light'}
-            defaultValue={code}
-            onChange={setState}
+            defaultValue={code[environment]}
+            value={state[environment]}
+            onChange={(value) => {
+              setState((prev) => ({
+                ...prev,
+                [environment]: value,
+              }));
+            }}
             loading={<FullLoader />}
           />
         </div>
@@ -76,7 +90,7 @@ export default function DemoPageShell(
             <Suspense fallback={<FullLoader />}>
               <Compiler
                 title={title}
-                code={debouncedState}
+                code={debouncedState[environment]}
                 onError={setError}
               />
             </Suspense>

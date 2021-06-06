@@ -7,7 +7,7 @@ export default function DarkModeToggle(): JSX.Element {
   const setPreference = useSetThemePreference();
 
   return (
-    <div className="py-4 px-2">
+    <div className="py-4 px-2 flex">
       <button
         type="button"
         onClick={() => {

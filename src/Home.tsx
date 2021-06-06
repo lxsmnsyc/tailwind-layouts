@@ -1,20 +1,24 @@
 import React, { lazy, Suspense, useState } from 'react';
 import { Link, useRoute } from 'wouter';
+import { useEnvironmentState } from './components/Environment';
 import PAGES from './pages';
+import { Project } from './pages/types';
 
 const Preview = lazy(() => import('./components/Preview'));
 
 interface PatternCardProps {
   title: string;
   href: string;
-  code: string;
+  code: Project;
 }
 
 function PatternCard({ href, title, code }: PatternCardProps): JSX.Element {
   const [loading, setLoading] = useState(true);
 
+  const environment = useEnvironmentState();
+
   return (
-    <Link to={`/patterns/${href}`}>
+    <Link to={`/patterns/${href}?environment=${environment}`}>
       <a className="w-full md:w-1/3 lg:w-1/4">
         <div className="rounded-lg shadow-lg border dark:border-gray-800 m-2 overflow-hidden transition hover:scale-105 hover:text-gray-500 dark:hover:text-gray-400">
           <div className="w-full h-auto border-b dark:border-gray-800 relative overflow-hidden">

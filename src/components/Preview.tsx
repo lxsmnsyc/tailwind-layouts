@@ -3,11 +3,15 @@ import React, {
   Suspense,
 } from 'react';
 import ErrorBoundary from './ErrorBoundary';
-import Compiler, { CompilerBaseProps } from './Compiler';
+import Compiler from './Compiler';
 import FullLoader from './FullLoader';
 import CompilerError from './CompilerError';
+import { Project } from '../pages/types';
+import { useEnvironmentState } from './Environment';
 
-interface PreviewProps extends CompilerBaseProps {
+interface PreviewProps {
+  title: string;
+  code: Project;
   onLoad: () => void;
 }
 
@@ -16,6 +20,7 @@ export default function Preview(
 ): JSX.Element {
   const [error, setError] = useState<Error>();
   const [, setRenderError] = useState<boolean>(false);
+  const environment = useEnvironmentState();
 
   return (
     <div className="flex flex-col h-full w-full bg-white text-black dark:bg-black dark:text-white">
@@ -29,7 +34,7 @@ export default function Preview(
         <Suspense fallback={<FullLoader />}>
           <Compiler
             title={title}
-            code={code}
+            code={code[environment]}
             onError={setError}
             onLoad={onLoad}
           />
