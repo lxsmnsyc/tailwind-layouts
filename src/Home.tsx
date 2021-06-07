@@ -36,6 +36,7 @@ function PatternCard({ href, title, code }: PatternCardProps): JSX.Element {
               </div>
             </div>
             {loading && <div className="absolute top-0 w-full h-full animate-pulse bg-gray-100 dark:bg-gray-900" />}
+            <div className="absolute top-0 w-full h-full" />
           </div>
           <div className="p-4">
             <span>{title}</span>
