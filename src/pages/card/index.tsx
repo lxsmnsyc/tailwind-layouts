@@ -8,7 +8,7 @@ function Card() {
   const [loading, setLoading] = React.useState(true);
 
   return (
-    <div className="p-8 w-full h-full flex items-center justify-center">
+    <div className="p-8 w-full min-h-full flex items-center justify-center">
       <div className="w-full h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div className="w-full flex items-center justify-center border-b dark:border-gray-800 relative">
           <img
@@ -60,8 +60,8 @@ function Card() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="p-8 w-full h-full flex items-center justify-center">
-      <div className="w-1/2 h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
+    <div className="p-8 w-full min-h-full flex items-center justify-center">
+      <div className="w-full h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div className="w-full flex items-center justify-center border-b dark:border-gray-800 relative">
           <img
             alt="Forest"
@@ -120,8 +120,8 @@ const Card = defineComponent({
     });
 
     return () => (
-      <div className="p-8 w-full h-full flex items-center justify-center">
-        <div className="w-1/2 h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
+      <div className="p-8 w-full min-h-full flex items-center justify-center">
+        <div className="w-full h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
           <div className="w-full flex items-center justify-center border-b dark:border-gray-800 relative">
             <img
               alt="Forest"
@@ -171,8 +171,8 @@ import { html, render } from 'https://cdn.skypack.dev/lit-html';
 
 function Card() {
   return html\`
-    <div class="p-8 w-full h-full flex items-center justify-center">
-      <div class="w-1/2 h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
+    <div class="p-8 w-full min-h-full flex items-center justify-center">
+      <div class="w-full h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div class="w-full flex items-center justify-center border-b dark:border-gray-800 relative">
           <img
             alt="Forest"
