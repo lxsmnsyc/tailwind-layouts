@@ -21,7 +21,7 @@ function Lightbox() {
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
           height="630"
-          className={\`w-full h-auto transition-opacity duration-300 \${loading ? 'opacity-0' : 'opacity-100'}\`}
+          className={\`w-full h-auto transition-opacity duration-200 \${loading ? 'opacity-0' : 'opacity-100'}\`}
           onLoad={() => {
             setLoading(false);
           }}
@@ -63,7 +63,7 @@ function Lightbox() {
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
           height="630"
-          className={\`w-full h-auto transition-opacity duration-300 \${loading ? 'opacity-0' : 'opacity-100'}\`}
+          className={\`w-full h-auto transition-opacity duration-200 \${loading ? 'opacity-0' : 'opacity-100'}\`}
           onLoad={() => {
             setLoading(false);
           }}
@@ -112,7 +112,7 @@ const Lightbox = defineComponent({
             src="https://source.unsplash.com/1200x630/?forest"
             width="1200"
             height="630"
-            className={\`w-full h-auto transition-opacity duration-300 \${state.loading ? 'opacity-0' : 'opacity-100'}\`}
+            className={\`w-full h-auto transition-opacity duration-200 \${state.loading ? 'opacity-0' : 'opacity-100'}\`}
             onLoad={() => {
               state.loading = false;
             }}
@@ -156,7 +156,7 @@ function Lightbox() {
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
           height="630"
-          class="w-full h-auto transition-opacity duration-300 opacity-0"
+          class="w-full h-auto transition-opacity duration-200 opacity-0"
         />
       </div>
     </div>

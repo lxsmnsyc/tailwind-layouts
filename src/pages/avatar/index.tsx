@@ -14,7 +14,7 @@ function Avatar({ src }) {
         src={src}
         width="256"
         height="256"
-        className={\`w-full h-auto transition-opacity duration-300 \${loading ? 'opacity-0' : 'opacity-100'} \`}
+        className={\`w-full h-auto transition-opacity duration-200 \${loading ? 'opacity-0' : 'opacity-100'} \`}
         onLoad={() => {
           setLoading(false);
         }}
@@ -73,7 +73,7 @@ function Avatar({ src }) {
         src={src}
         width="256"
         height="256"
-        className={\`w-full h-auto transition-opacity duration-300 \${loading ? 'opacity-0' : 'opacity-100'} \`}
+        className={\`w-full h-auto transition-opacity duration-200 \${loading ? 'opacity-0' : 'opacity-100'} \`}
         onLoad={() => {
           setLoading(false);
         }}
@@ -147,7 +147,7 @@ const Avatar = defineComponent({
           src={src.value}
           width="256"
           height="256"
-          className={\`w-full h-auto transition-opacity duration-300 \${state.loading ? 'opacity-0' : 'opacity-100'} \`}
+          className={\`w-full h-auto transition-opacity duration-200 \${state.loading ? 'opacity-0' : 'opacity-100'} \`}
           onLoad={() => {
             state.loading = false;
           }}
@@ -215,7 +215,7 @@ function Avatar(src) {
         src=\${src}
         width="256"
         height="256"
-        class="w-full h-auto transition-opacity duration-300 opacity-0"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
       />
     </div>
   \`;

@@ -91,7 +91,7 @@ export function EnvironmentSelector(): JSX.Element {
           dispatch(env);
           setLocation(`${location}?environment=${env}`);
         }}
-        className="bg-gray-100 dark:bg-gray-900 px-2 py-1 rounded-lg"
+        className="bg-gray-100 dark:bg-gray-900 px-2 py-1 rounded-lg transition-colors duration-200 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-700 dark:active:bg-gray-600"
       >
         {Object.entries(ENVIRONMENTS).map(([key, value]) => (
           <option
