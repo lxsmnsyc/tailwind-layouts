@@ -15,8 +15,6 @@ setup({
   },
 });
 
-window.React = React;
-
 ReactDOM.render(
   <React.StrictMode>
     <App />

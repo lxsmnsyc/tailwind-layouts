@@ -61,22 +61,24 @@ export default function DemoPageShell(
           <h2>{title}</h2>
         </div>
       </div>
-      <div className="sm:flex-row flex-col-reverse overflow-hidden flex-grow flex items-stretch justify-center">
+      <div className="flex-1 flex items-stretch justify-center sm:flex-row flex-col-reverse">
         <div className="flex-1 relative">
-          <Editor
-            height="100%"
-            defaultLanguage="javascript"
-            theme={isDarkMode ? 'vs-dark' : 'light'}
-            defaultValue={code[environment]}
-            value={state[environment]}
-            onChange={(value) => {
-              setState((prev) => ({
-                ...prev,
-                [environment]: value,
-              }));
-            }}
-            loading={<FullLoader />}
-          />
+          <div className="w-full h-full absolute">
+            <Editor
+              height="100%"
+              defaultLanguage="javascript"
+              theme={isDarkMode ? 'vs-dark' : 'light'}
+              defaultValue={code[environment]}
+              value={state[environment]}
+              onChange={(value) => {
+                setState((prev) => ({
+                  ...prev,
+                  [environment]: value,
+                }));
+              }}
+              loading={<FullLoader />}
+            />
+          </div>
         </div>
         <div className="flex-1 overflow-auto border-b dark:border-gray-800 md:border-l relative">
           <ErrorBoundary
