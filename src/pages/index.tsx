@@ -15,6 +15,7 @@ import { Project, Page } from './types';
 
 export const ENVIRONMENTS: Project = {
   react: 'React',
+  preact: 'Preact',
   'vue-3': 'Vue 3',
   'lit-html': 'lit-html',
 };

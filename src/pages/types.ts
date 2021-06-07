@@ -1,5 +1,6 @@
 export type ProjectMode =
 | 'react'
+| 'preact'
 | 'vue-3'
 | 'lit-html';
 
