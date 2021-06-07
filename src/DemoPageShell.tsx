@@ -80,26 +80,28 @@ export default function DemoPageShell(
             />
           </div>
         </div>
-        <div className="flex-1 overflow-auto border-b dark:border-gray-800 md:border-l relative">
-          <ErrorBoundary
-            key={retryKey}
-            onError={(err) => {
-              setRenderError(true);
-              setError(err);
-            }}
-            fallback={error && <CompilerError error={error} />}
-          >
-            <Suspense fallback={<FullLoader />}>
-              <Compiler
-                title={title}
-                code={debouncedState[environment]}
-                onError={setError}
-              />
-            </Suspense>
-          </ErrorBoundary>
-          {
-            error && <CompilerError error={error} />
-          }
+        <div className="flex-1 border-b dark:border-gray-800 md:border-l relative">
+          <div className="w-full h-full absolute overflow-auto">
+            <ErrorBoundary
+              key={retryKey}
+              onError={(err) => {
+                setRenderError(true);
+                setError(err);
+              }}
+              fallback={error && <CompilerError error={error} />}
+            >
+              <Suspense fallback={<FullLoader />}>
+                <Compiler
+                  title={title}
+                  code={debouncedState[environment]}
+                  onError={setError}
+                />
+              </Suspense>
+            </ErrorBoundary>
+            {
+              error && <CompilerError error={error} />
+            }
+          </div>
         </div>
       </div>
     </div>

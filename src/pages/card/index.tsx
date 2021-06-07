@@ -9,7 +9,7 @@ function Card() {
 
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
-      <div className="w-1/2 h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
+      <div className="w-full h-auto overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div className="w-full flex items-center justify-center border-b dark:border-gray-800 relative">
           <img
             alt="Forest"
