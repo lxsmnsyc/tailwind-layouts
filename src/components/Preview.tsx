@@ -52,26 +52,29 @@ function PreviewInternal(
 export default function Preview(
   { title, code, onLoad }: PreviewProps,
 ): JSX.Element {
-  const [visible, setVisible] = useState(false);
+  const visible = useRef(false);
+  const [visibleOnce, setVisibleOnce] = useState(false);
   const container = useRef<HTMLDivElement | null>(null);
 
   const environment = useEnvironmentState();
 
   useEffect(() => {
-    setVisible(false);
+    setVisibleOnce(visible.current);
   }, [environment]);
 
   useEffect(() => {
     const { current } = container;
-    if (!current || visible) {
+    if (!current) {
       return undefined;
     }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.target === current && entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(current);
+        if (entry.target === current) {
+          visible.current = entry.isIntersecting;
+          if (entry.isIntersecting) {
+            setVisibleOnce(true);
+          }
         }
       });
     });
@@ -82,7 +85,7 @@ export default function Preview(
       observer.unobserve(current);
       observer.disconnect();
     };
-  }, [visible]);
+  }, []);
 
   return (
     <div
@@ -90,7 +93,7 @@ export default function Preview(
       className="flex flex-col h-full w-full bg-white text-black dark:bg-black dark:text-white"
     >
       {
-        visible && (
+        visibleOnce && (
           <PreviewInternal
             title={title}
             code={code}

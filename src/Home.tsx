@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Link, useRoute } from 'wouter';
 import { useEnvironmentState } from './components/Environment';
 import PAGES from './pages';
@@ -16,10 +16,6 @@ function PatternCard({ href, title, code }: PatternCardProps): JSX.Element {
   const [loading, setLoading] = useState(true);
 
   const environment = useEnvironmentState();
-
-  useEffect(() => {
-    setLoading(true);
-  }, [environment]);
 
   return (
     <Link to={`/patterns/${href}?environment=${environment}`}>
