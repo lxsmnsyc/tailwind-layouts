@@ -32,7 +32,7 @@ function Card() {
         <div className="p-4 w-full flex items-center justify-start flex-row-reverse">
           <button
             type="button"
-            className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
+            className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700 active:bg-gray-600"
           >
             Action
           </button>
@@ -84,7 +84,7 @@ function Card() {
         <div className="p-4 w-full flex items-center justify-start flex-row-reverse">
           <button
             type="button"
-            className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
+            className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700 active:bg-gray-600"
           >
             Action
           </button>
@@ -144,7 +144,7 @@ const Card = defineComponent({
           <div className="p-4 w-full flex items-center justify-start flex-row-reverse">
             <button
               type="button"
-              className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
+              className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700 active:bg-gray-600"
             >
               Action
             </button>
@@ -191,7 +191,7 @@ function Card() {
         <div class="p-4 w-full flex items-center justify-start flex-row-reverse">
           <button
             type="button"
-            class="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
+            class="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700 active:bg-gray-600"
           >
             Action
           </button>
