@@ -26,7 +26,7 @@ function Avatar({ src }) {
 
 function AvatarDemo() {
   return (
-    <div className="p-8 w-full h-full flex items-center justify-center flex-row">
+    <div className="p-8 w-full h-full flex items-center justify-center flex-row flex-wrap">
       <div className="w-32 h-32 m-1">
         <Avatar src="https://source.unsplash.com/256x256" />
       </div>
@@ -103,7 +103,7 @@ const AvatarDemo = defineComponent({
   name: 'AvatarDemo',
   setup () {
     return () => (
-      <div className="p-8 w-full h-full flex items-center justify-center flex-row">
+      <div className="p-8 w-full h-full flex items-center justify-center flex-row flex-wrap">
         <div className="w-32 h-32 m-1">
           <Avatar src="https://source.unsplash.com/256x256" />
         </div>
@@ -164,7 +164,7 @@ function Avatar(src) {
 
 function AvatarDemo() {
   return html\`
-    <div class="p-8 w-full h-full flex items-center justify-center flex-row">
+    <div class="p-8 w-full h-full flex items-center justify-center flex-row flex-wrap">
       <div class="w-32 h-32 m-1">
         \${Avatar('https://source.unsplash.com/256x256')}
       </div>
