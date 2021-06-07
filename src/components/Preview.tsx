@@ -55,9 +55,15 @@ export default function Preview(
   const [visible, setVisible] = useState(false);
   const container = useRef<HTMLDivElement | null>(null);
 
+  const environment = useEnvironmentState();
+
+  useEffect(() => {
+    setVisible(false);
+  }, [environment]);
+
   useEffect(() => {
     const { current } = container;
-    if (!current) {
+    if (!current || visible) {
       return undefined;
     }
 
@@ -76,7 +82,7 @@ export default function Preview(
       observer.unobserve(current);
       observer.disconnect();
     };
-  }, []);
+  }, [visible]);
 
   return (
     <div
