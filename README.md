@@ -22,10 +22,20 @@ Since Tailwind only generates classes during build-time, `tailwind-layouts` inst
 
 Since the compiled code's format is in ESM, `tailwind-layouts` allows CDN imports. You can check out [Skypack](http://skypack.dev/).
 
-## To be added
+### Environments
 
-- Support for HTML (Vanilla), Vue and other libraries/frameworks
-- Add a tool drawer for tweaking Tailwind code through GUI.
+`tailwind-layouts` currently supports the following implementations:
+
+- [React](https://reactjs.org/)
+- [Preact](https://preactjs.com/)
+- [Vue 3](https://v3.vuejs.org/)
+- [`lit-html`](http://lit-html.polymer-project.org/)
+
+Upcoming implemenations:
+
+- Vanilla JS
+- Inferno
+- Vue 2
 
 ## License
 
