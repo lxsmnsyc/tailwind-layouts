@@ -55,11 +55,12 @@ export default function Preview(
   const visible = useRef(false);
   const [visibleOnce, setVisibleOnce] = useState(false);
   const container = useRef<HTMLDivElement | null>(null);
-
+  const [loading, setLoading] = useState(true);
   const environment = useEnvironmentState();
 
   useEffect(() => {
     setVisibleOnce(visible.current);
+    setLoading(true);
   }, [environment]);
 
   useEffect(() => {
@@ -90,14 +91,17 @@ export default function Preview(
   return (
     <div
       ref={container}
-      className="flex flex-col h-full w-full bg-white text-black dark:bg-black dark:text-white"
+      className={`flex flex-col h-full w-full bg-white text-black dark:bg-black dark:text-white transition-opacity duration-200 ${loading ? 'opacity-0' : 'opacity-100'}`}
     >
       {
         visibleOnce && (
           <PreviewInternal
             title={title}
             code={code}
-            onLoad={onLoad}
+            onLoad={() => {
+              setLoading(false);
+              onLoad();
+            }}
           />
         )
       }
