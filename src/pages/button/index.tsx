@@ -37,7 +37,7 @@ function Button() {
         <div className="m-2">
           <button
             type="button"
-            class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -45,7 +45,7 @@ function Button() {
         <div className="m-2">
           <button
             type="button"
-            class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -53,7 +53,7 @@ function Button() {
         <div className="m-2">
           <button
             type="button"
-            class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -109,7 +109,7 @@ function Button() {
         <div className="m-2">
           <button
             type="button"
-            class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -117,7 +117,7 @@ function Button() {
         <div className="m-2">
           <button
             type="button"
-            class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -125,7 +125,7 @@ function Button() {
         <div className="m-2">
           <button
             type="button"
-            class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -183,7 +183,7 @@ const Button = defineComponent({
           <div className="m-2">
             <button
               type="button"
-              class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
             >
               Button
             </button>
@@ -191,7 +191,7 @@ const Button = defineComponent({
           <div className="m-2">
             <button
               type="button"
-              class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
             >
               Button
             </button>
@@ -199,7 +199,7 @@ const Button = defineComponent({
           <div className="m-2">
             <button
               type="button"
-              class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
             >
               Button
             </button>
@@ -257,7 +257,7 @@ function Button() {
         <div class="m-2">
           <button
             type="button"
-            class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-1 px-2 rounded text-sm transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -265,7 +265,7 @@ function Button() {
         <div class="m-2">
           <button
             type="button"
-            class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-2 px-4 rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
@@ -273,7 +273,7 @@ function Button() {
         <div class="m-2">
           <button
             type="button"
-            class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-50 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+            class="py-3 px-6 text-lg rounded-lg transition-colors duration-200 text-gray-800 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-300 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700"
           >
             Button
           </button>
