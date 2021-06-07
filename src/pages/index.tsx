@@ -10,6 +10,7 @@ import diagonalSection from './diagonal-section';
 import notification from './notification';
 import navbar from './navbar';
 import tag from './tag';
+import button from './button';
 
 import { Project, Page } from './types';
 
@@ -33,6 +34,7 @@ const PAGES: Record<string, Page> = {
   [notification.path]: notification,
   [navbar.path]: navbar,
   [tag.path]: tag,
+  [button.path]: button,
 };
 
 export default PAGES;
