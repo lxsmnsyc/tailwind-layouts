@@ -10,7 +10,7 @@ function Feedback() {
       <div className="w-full shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div className="w-full border-b px-4 py-2 dark:border-gray-800">
           <label htmlFor="feedback" className="uppercase text-xs text-gray-500 dark:text-gray-400 font-semibold">Feedback</label>
-          <textarea id="feedback" className="mt-2 w-full rounded p-2 outline-none ring-2 ring-purple-300 dark:ring-purple-700 focus-visible:ring-purple-500 dark:bg-black" />
+          <textarea id="feedback" className="mt-2 w-full rounded p-2 outline-none ring-2 ring-gray-300 dark:ring-gray-700 focus-visible:ring-gray-500 dark:bg-black" />
         </div>
         <div className="w-full flex items-center justify-between">
           <div className="m-2">
@@ -42,7 +42,7 @@ function Feedback() {
           <div className="m-2">
             <button
               type="button"
-              className="bg-purple-700 py-2 px-4 text-white rounded-lg hover:bg-purple-600"
+              className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
             >
               Send
             </button>
@@ -74,7 +74,7 @@ const Feedback = defineComponent({
         <div className="w-full shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
           <div className="w-full border-b px-4 py-2 dark:border-gray-800">
             <label htmlFor="feedback" className="uppercase text-xs text-gray-500 dark:text-gray-400 font-semibold">Feedback</label>
-            <textarea id="feedback" className="mt-2 w-full rounded p-2 outline-none ring-2 ring-purple-300 dark:ring-purple-700 focus-visible:ring-purple-500 dark:bg-black" />
+            <textarea id="feedback" className="mt-2 w-full rounded p-2 outline-none ring-2 ring-gray-300 dark:ring-gray-700 focus-visible:ring-gray-500 dark:bg-black" />
           </div>
           <div className="w-full flex items-center justify-between">
             <div className="m-2">
@@ -106,7 +106,7 @@ const Feedback = defineComponent({
             <div className="m-2">
               <button
                 type="button"
-                className="bg-purple-700 py-2 px-4 text-white rounded-lg hover:bg-purple-600"
+                className="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
               >
                 Send
               </button>
@@ -138,7 +138,7 @@ function Feedback() {
       <div class="w-full shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div class="w-full border-b px-4 py-2 dark:border-gray-800">
           <label htmlFor="feedback" class="uppercase text-xs text-gray-500 dark:text-gray-400 font-semibold">Feedback</label>
-          <textarea id="feedback" class="mt-2 w-full rounded p-2 outline-none ring-2 ring-purple-300 dark:ring-purple-700 focus-visible:ring-purple-500 dark:bg-black"></textarea>
+          <textarea id="feedback" class="mt-2 w-full rounded p-2 outline-none ring-2 ring-gray-300 dark:ring-gray-700 focus-visible:ring-gray-500 dark:bg-black"></textarea>
         </div>
         <div class="w-full flex items-center justify-between">
           <div class="m-2">
@@ -170,7 +170,7 @@ function Feedback() {
           <div class="m-2">
             <button
               type="button"
-              class="bg-purple-700 py-2 px-4 text-white rounded-lg hover:bg-purple-600"
+              class="bg-gray-800 py-2 px-4 text-white rounded-lg hover:bg-gray-700"
             >
               Send
             </button>
