@@ -58,7 +58,7 @@ export const EnvironmentAdapter: FC = ({ children }) => {
   });
 
   useEffect(() => {
-    const url = new URLSearchParams(window.location.href);
+    const url = new URLSearchParams(window.location.search);
 
     const param = url.get('environment');
 
