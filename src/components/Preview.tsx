@@ -1,6 +1,8 @@
 import React, {
   useState,
   Suspense,
+  useEffect,
+  useRef,
 } from 'react';
 import ErrorBoundary from './ErrorBoundary';
 import Compiler from './Compiler';
@@ -15,7 +17,7 @@ interface PreviewProps {
   onLoad: () => void;
 }
 
-export default function Preview(
+function PreviewInternal(
   { title, code, onLoad }: PreviewProps,
 ): JSX.Element {
   const [error, setError] = useState<Error>();
@@ -23,7 +25,7 @@ export default function Preview(
   const environment = useEnvironmentState();
 
   return (
-    <div className="flex flex-col h-full w-full bg-white text-black dark:bg-black dark:text-white">
+    <>
       <ErrorBoundary
         onError={(err) => {
           setRenderError(true);
@@ -42,6 +44,53 @@ export default function Preview(
       </ErrorBoundary>
       {
         error && <CompilerError error={error} />
+      }
+    </>
+  );
+}
+
+export default function Preview(
+  { title, code, onLoad }: PreviewProps,
+): JSX.Element {
+  const [visible, setVisible] = useState(false);
+  const container = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const { current } = container;
+    if (!current) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === current && entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(current);
+        }
+      });
+    });
+
+    observer.observe(current);
+
+    return () => {
+      observer.unobserve(current);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div
+      ref={container}
+      className="flex flex-col h-full w-full bg-white text-black dark:bg-black dark:text-white"
+    >
+      {
+        visible && (
+          <PreviewInternal
+            title={title}
+            code={code}
+            onLoad={onLoad}
+          />
+        )
       }
     </div>
   );
