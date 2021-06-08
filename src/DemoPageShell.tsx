@@ -13,6 +13,7 @@ import { Project } from './pages/types';
 import { useEnvironmentState } from './components/Environment';
 import loadDefinitions from './utils/load-definitions';
 import { SKYPACK, UNPKG } from './utils/constants';
+import { EXTENSIONS, LANGUAGES } from './pages';
 
 interface DemoPageShellProps {
   title: string;
@@ -102,9 +103,9 @@ export default function DemoPageShell(
         <div className="flex-1 relative">
           <div className="w-full h-full absolute">
             <Editor
-              path={`file:///${environment}.tsx`}
+              path={`file:///${environment}.${EXTENSIONS[environment]}`}
               height="100%"
-              defaultLanguage="typescript"
+              language={LANGUAGES[environment]}
               theme={isDarkMode ? 'vs-dark' : 'light'}
               defaultValue={code[environment]}
               // value={state[environment]}

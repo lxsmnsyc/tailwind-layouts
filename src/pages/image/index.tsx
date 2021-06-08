@@ -1,5 +1,52 @@
 import { Page } from '../types';
 
+const HTML = `
+<div id="image" class="p-8 w-full h-full flex items-center justify-center">
+  <div class="w-full flex items-center justify-center flex-col">
+    <div class="w-3/4 overflow-hidden flex items-center justify-center shadow-lg rounded-lg relative">
+      <img
+        alt="Forest"
+        src="https://source.unsplash.com/1200x630/?forest"
+        width="1200"
+        height="630"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+    <div class="w-full p-2 flex items-center justify-center">
+      <span class="text-xs">Source: Unsplash</span>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function renderFallback(root) {
+    root.querySelectorAll('img').forEach((el) => {
+      if (!el.complete) {
+        const fallback = document.createElement('div');
+    
+        fallback.innerHTML = \`
+          <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+          </div>
+        \`;
+    
+        el.parentNode.appendChild(fallback);
+    
+        el.addEventListener('load', () => {
+          el.classList.remove('opacity-0');
+          el.classList.add('opacity-100');
+    
+          el.parentNode.removeChild(fallback);
+        });
+      } else {
+        el.classList.remove('opacity-0');
+        el.classList.add('opacity-100');
+      }
+    });
+  }
+
+  renderFallback(document.getElementById('image'));
+</script>
+`;
+
 const REACT = `
 import React from 'https://cdn.skypack.dev/react';
 import ReactDOM from 'https://cdn.skypack.dev/react-dom';
@@ -195,6 +242,7 @@ const PAGE: Page = {
   path: 'image',
   title: 'Image',
   code: {
+    html: HTML,
     react: REACT,
     preact: PREACT,
     'vue-3': VUE_3,

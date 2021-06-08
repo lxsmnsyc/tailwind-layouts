@@ -1,5 +1,16 @@
 import { Page } from '../types';
 
+const HTML = `
+<div class="py-8 w-full h-full flex items-center justify-center">
+  <div class="relative w-full h-64">
+    <div class="absolute left-0 top-0 w-full h-full transform-gpu -skew-y-6 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"></div>
+    <div class="w-full h-full flex flex-col items-center justify-center">
+      <span class="text-xl text-white z-10">Lorem Ipsum</span>
+    </div>
+  </div>
+</div>
+`;
+
 const REACT = `
 import React from 'https://cdn.skypack.dev/react';
 import ReactDOM from 'https://cdn.skypack.dev/react-dom';
@@ -108,6 +119,7 @@ const PAGE: Page = {
   path: 'diagonal-section',
   title: 'Diagonal Section',
   code: {
+    html: HTML,
     react: REACT,
     preact: PREACT,
     'vue-3': VUE_3,

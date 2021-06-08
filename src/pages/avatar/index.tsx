@@ -1,5 +1,104 @@
 import { Page } from '../types';
 
+const HTML = `
+<div id="avatar" class="p-8 w-full h-full flex items-center justify-center flex-row flex-wrap">
+  <div class="w-32 h-32 m-1">
+    <div class="relative rounded-full w-full h-full overflow-hidden shadow">
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+  </div>
+  <div class="w-24 h-24 m-1">
+    <div class="relative rounded-full w-full h-full overflow-hidden shadow">
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+  </div>
+  <div class="w-16 h-16 m-1">
+    <div class="relative rounded-full w-full h-full overflow-hidden shadow">
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+  </div>
+  <div class="w-12 h-12 m-1">
+    <div class="relative rounded-full w-full h-full overflow-hidden shadow">
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+  </div>
+  <div class="w-8 h-8 m-1">
+    <div class="relative rounded-full w-full h-full overflow-hidden shadow">
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+  </div>
+  <div class="w-4 h-4 m-1">
+    <div class="relative rounded-full w-full h-full overflow-hidden shadow">
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200 opacity-0"
+      />
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function renderFallback(root) {
+    root.querySelectorAll('img').forEach((el) => {
+      if (!el.complete) {
+        const fallback = document.createElement('div');
+    
+        fallback.innerHTML = \`
+          <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+          </div>
+        \`;
+    
+        el.parentNode.appendChild(fallback);
+    
+        el.addEventListener('load', () => {
+          el.classList.remove('opacity-0');
+          el.classList.add('opacity-100');
+    
+          el.parentNode.removeChild(fallback);
+        });
+      } else {
+        el.classList.remove('opacity-0');
+        el.classList.add('opacity-100');
+      }
+    });
+  }
+
+  renderFallback(document.getElementById('avatar'));
+</script>
+`;
+
 const REACT = `
 import React from 'https://cdn.skypack.dev/react';
 import ReactDOM from 'https://cdn.skypack.dev/react-dom';
@@ -278,6 +377,7 @@ const PAGE: Page = {
   path: 'avatar',
   title: 'Avatar',
   code: {
+    html: HTML,
     react: REACT,
     preact: PREACT,
     'vue-3': VUE_3,

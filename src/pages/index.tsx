@@ -15,10 +15,27 @@ import button from './button';
 import { Project, Page } from './types';
 
 export const ENVIRONMENTS: Project = {
+  html: 'HTML',
   react: 'React',
   preact: 'Preact',
   'vue-3': 'Vue 3',
   'lit-html': 'lit-html',
+};
+
+export const EXTENSIONS: Project = {
+  html: 'html',
+  react: 'tsx',
+  preact: 'tsx',
+  'vue-3': 'tsx',
+  'lit-html': 'tsx',
+};
+
+export const LANGUAGES: Project = {
+  html: 'html',
+  react: 'typescript',
+  preact: 'typescript',
+  'vue-3': 'typescript',
+  'lit-html': 'typescript',
 };
 
 const PAGES: Record<string, Page> = {
