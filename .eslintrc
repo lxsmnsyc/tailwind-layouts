@@ -12,6 +12,11 @@
     "react/jsx-props-no-spreading": "off",
     "no-eval": "off",
     "@typescript-eslint/no-implied-eval": "off",
-    "no-new-func": "off"
+    "no-new-func": "off",
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "./src/raw-env.d.ts"
+      ]
+    }]
   }
 }

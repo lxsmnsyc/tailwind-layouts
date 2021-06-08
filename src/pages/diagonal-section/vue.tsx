@@ -3,7 +3,7 @@ import { h, createApp, defineComponent } from 'https://cdn.skypack.dev/vue@next/
 
 const DiagonalSection = defineComponent({
   name: 'DiagonalSection',
-  setup () {
+  setup() {
     return () => (
       <div className="py-8 w-full h-full flex items-center justify-center">
         <div className="relative w-full h-64">
@@ -14,7 +14,7 @@ const DiagonalSection = defineComponent({
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default function renderApp(root) {
