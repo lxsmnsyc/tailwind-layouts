@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h, createApp, defineComponent } from 'https://cdn.skypack.dev/vue@3.0.11/dist/vue.esm-browser.js';
+import { h, createApp, defineComponent } from 'https://cdn.skypack.dev/vue@next/dist/vue.esm-browser.js';
 
 const AppWindow = defineComponent({
   name: 'AppWindow',

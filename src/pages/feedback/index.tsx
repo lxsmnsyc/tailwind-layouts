@@ -182,7 +182,7 @@ export default function renderApp(root) {
 
 export const VUE_3 = `
 /** @jsx h */
-import { h, createApp, defineComponent } from 'https://cdn.skypack.dev/vue@3.0.11/dist/vue.esm-browser.js';
+import { h, createApp, defineComponent } from 'https://cdn.skypack.dev/vue@next/dist/vue.esm-browser.js';
 
 const Feedback = defineComponent({
   name: 'Feedback',
