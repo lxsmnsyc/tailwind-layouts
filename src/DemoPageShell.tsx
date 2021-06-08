@@ -36,7 +36,7 @@ export default function DemoPageShell(
 
   useEffect(() => {
     setError(undefined);
-  }, [state]);
+  }, [state, environment]);
 
   const [debouncedState, setDebouncedState] = useState(state);
 
@@ -102,12 +102,12 @@ export default function DemoPageShell(
         <div className="flex-1 relative">
           <div className="w-full h-full absolute">
             <Editor
-              path="file:///index.tsx"
+              path={`file:///${environment}.tsx`}
               height="100%"
               defaultLanguage="typescript"
               theme={isDarkMode ? 'vs-dark' : 'light'}
               defaultValue={code[environment]}
-              value={state[environment]}
+              // value={state[environment]}
               onChange={(value) => {
                 setState((prev) => ({
                   ...prev,
