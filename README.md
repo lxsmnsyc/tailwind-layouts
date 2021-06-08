@@ -1,6 +1,6 @@
 # tailwind-layouts
 
-![Untitled](https://user-images.githubusercontent.com/4783372/120806881-f4943380-c579-11eb-883f-30f9eeb4cefd.png)
+![image](https://user-images.githubusercontent.com/4783372/121133049-74fdb180-c864-11eb-86d9-dcb2a932a174.png)
 
 > A collection of [Tailwind](https://tailwindcss.com) Layouts
 
@@ -21,6 +21,10 @@ Since Tailwind only generates classes during build-time, `tailwind-layouts` inst
 #### CDN Imports
 
 Since the compiled code's format is in ESM, `tailwind-layouts` allows CDN imports. You can check out [Skypack](http://skypack.dev/).
+
+#### Live TypeScript definitions
+
+When importing packages from [Skypack](http://skypack.dev/) or [UNPKG](https://unpkg.com/), `tailwind-layouts` will attempt to load the TypeScript declarations of the imported package in real-time, allowing you to have a type-safe environment in the playground.
 
 ### Environments
 
