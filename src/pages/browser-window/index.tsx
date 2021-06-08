@@ -43,6 +43,8 @@ function Refresh() {
 }
 
 function BrowserWindow() {
+  const [loading, setLoading] = React.useState(true);
+
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div className="w-full h-full overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
@@ -67,12 +69,16 @@ function BrowserWindow() {
             </a>
           </div>
         </div>
-        <div className="w-full h-full">
+        <div className="w-full h-full relative">
           <iframe
             title="TaildwindCSS"
             src="https://tailwindcss.com"
-            className="w-full h-full"
-          />
+            className={\`w-full h-full transition-opacity duration-200 \${loading ? 'opacity-0' : 'opacity-100'} \`}
+            onLoad={() => {
+              setLoading(false);
+            }}
+          /> 
+          {loading && <div className="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900" />}
         </div>
       </div>
     </div>
@@ -91,6 +97,7 @@ export default function renderApp(root) {
 const PREACT = `
 /** @jsx h */
 import { h, render } from 'https://cdn.skypack.dev/preact';
+import { useState } from 'https://cdn.skypack.dev/preact/hooks';
 
 function Lock() {
   return (
@@ -131,6 +138,8 @@ function Refresh() {
 }
 
 function BrowserWindow() {
+  const [loading, setLoading] = useState(true);
+
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div className="w-full h-full overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
@@ -155,12 +164,16 @@ function BrowserWindow() {
             </a>
           </div>
         </div>
-        <div className="w-full h-full">
+        <div className="w-full h-full relative">
           <iframe
             title="TaildwindCSS"
             src="https://tailwindcss.com"
-            className="w-full h-full"
-          />
+            className={\`w-full h-full transition-opacity duration-200 \${loading ? 'opacity-0' : 'opacity-100'} \`}
+            onLoad={() => {
+              setLoading(false);
+            }}
+          /> 
+          {loading && <div className="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900" />}
         </div>
       </div>
     </div>
@@ -178,7 +191,12 @@ export default function renderApp(root) {
 
 export const VUE_3 = `
 /** @jsx h */
-import { h, createApp, defineComponent } from 'https://cdn.skypack.dev/vue@3.0.11/dist/vue.esm-browser.js';
+import {
+  h,
+  createApp,
+  defineComponent,
+  reactive,
+} from 'https://cdn.skypack.dev/vue@3.0.11/dist/vue.esm-browser.js';
 
 const Lock = defineComponent({
   name: 'Lock',
@@ -227,6 +245,9 @@ const Refresh = defineComponent({
 const BrowserWindow = defineComponent({
   name: 'BrowserWindow',
   setup () {
+    const state = reactive({
+      loading: true,
+    });
     return () => (
       <div className="p-8 w-full h-full flex items-center justify-center">
         <div className="w-full h-full overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
@@ -251,12 +272,16 @@ const BrowserWindow = defineComponent({
               </a>
             </div>
           </div>
-          <div className="w-full h-full">
+          <div className="w-full h-full relative">
             <iframe
               title="TaildwindCSS"
               src="https://tailwindcss.com"
-              className="w-full h-full"
-            />
+              className={\`w-full h-full transition-opacity duration-200 \${state.loading ? 'opacity-0' : 'opacity-100'} \`}
+              onLoad={() => {
+                state.loading = false;
+              }}
+            /> 
+            {state.loading && <div className="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900" />}
           </div>
         </div>
       </div>
@@ -341,11 +366,11 @@ function BrowserWindow() {
             </a>
           </div>
         </div>
-        <div class="w-full h-full">
+        <div class="w-full h-full relative">
           <iframe
             title="TaildwindCSS"
             src="https://tailwindcss.com"
-            class="w-full h-full"
+            class="w-full h-full transition-opacity duration-200 opacity-0"
           >
           </iframe>
         </div>
@@ -354,8 +379,38 @@ function BrowserWindow() {
   \`;
 }
 
+function Fallback() {
+  return html\`
+    <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+    </div>
+  \`;
+}
+
+function renderFallback(root) {
+  root.querySelectorAll('iframe').forEach((el) => {
+    if (!el.complete) {
+      const fallback = document.createElement('div');
+  
+      render(Fallback(), fallback);
+  
+      el.parentNode.appendChild(fallback);
+  
+      el.addEventListener('load', () => {
+        el.classList.remove('opacity-0');
+        el.classList.add('opacity-100');
+  
+        el.parentNode.removeChild(fallback);
+      });
+    } else {
+      el.classList.remove('opacity-0');
+      el.classList.add('opacity-100');
+    }
+  });
+}
+
 export default function renderApp(root) {
   render(BrowserWindow(), root);
+  renderFallback(root);
 }
 `;
 
