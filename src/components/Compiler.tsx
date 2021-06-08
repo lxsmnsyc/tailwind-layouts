@@ -58,9 +58,27 @@ export default function Compiler(
         target: 'es2017',
         jsxFactory: 'React.createElement',
         jsxFragment: 'React.Fragment',
-        loader: 'jsx',
+        loader: 'tsx',
         globalName: 'Component',
         sourcemap: 'inline',
+        tsconfigRaw: JSON.stringify({
+          compilerOptions: {
+            module: 'ESNext',
+            lib: ['ESNext'],
+            importHelpers: true,
+            declaration: true,
+            sourceMap: true,
+            strict: true,
+            noUnusedLocals: true,
+            noUnusedParameters: true,
+            noImplicitReturns: true,
+            noFallthroughCasesInSwitch: true,
+            moduleResolution: 'node',
+            jsx: 'react',
+            esModuleInterop: true,
+            target: 'ES2017',
+          },
+        }),
       }).then((result) => {
         if (mounted) {
           const encodedJs = encodeURIComponent(result.code);

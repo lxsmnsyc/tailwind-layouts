@@ -3,7 +3,7 @@ import React, {
   useEffect,
   Suspense,
 } from 'react';
-import Editor from '@monaco-editor/react';
+import Editor, { useMonaco } from '@monaco-editor/react';
 import ErrorBoundary from './components/ErrorBoundary';
 import { useDarkPreference } from './components/ThemeAdapter';
 import Compiler from './components/Compiler';
@@ -11,6 +11,8 @@ import FullLoader from './components/FullLoader';
 import CompilerError from './components/CompilerError';
 import { Project } from './pages/types';
 import { useEnvironmentState } from './components/Environment';
+import loadDefinitions from './utils/load-definitions';
+import { SKYPACK, UNPKG } from './utils/constants';
 
 interface DemoPageShellProps {
   title: string;
@@ -54,6 +56,41 @@ export default function DemoPageShell(
     };
   }, [state]);
 
+  const monaco = useMonaco();
+
+  useEffect(() => {
+    if (monaco) {
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        target: monaco.languages.typescript.ScriptTarget.ES2017,
+        allowNonTsExtensions: true,
+        typeRoots: [
+          SKYPACK,
+          UNPKG,
+        ],
+        jsx: monaco.languages.typescript.JsxEmit.React,
+        jsxFactory: 'React.createElement',
+        noEmit: true,
+        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        module: monaco.languages.typescript.ModuleKind.ESNext,
+        strict: true,
+        noUnusedLocals: true,
+        noUnusedParameters: true,
+        noImplicitReturns: true,
+        noFallthroughCasesInSwitch: true,
+        importHelpers: true,
+        esModuleInterop: true,
+      });
+    }
+  }, [monaco]);
+
+  useEffect(() => {
+    if (monaco) {
+      loadDefinitions(monaco, state[environment]).catch(() => {
+        //
+      });
+    }
+  }, [environment, state, monaco]);
+
   return (
     <div className="overflow-hidden w-full h-screen flex-1 flex items-stretch justify-center flex-col">
       <div className="flex-none flex items-center justify-between border-b dark:border-gray-800">
@@ -65,8 +102,9 @@ export default function DemoPageShell(
         <div className="flex-1 relative">
           <div className="w-full h-full absolute">
             <Editor
+              path="file:///index.tsx"
               height="100%"
-              defaultLanguage="javascript"
+              defaultLanguage="typescript"
               theme={isDarkMode ? 'vs-dark' : 'light'}
               defaultValue={code[environment]}
               value={state[environment]}
@@ -77,6 +115,9 @@ export default function DemoPageShell(
                 }));
               }}
               loading={<FullLoader />}
+              options={{
+                scrollBeyondLastLine: false,
+              }}
             />
           </div>
         </div>
