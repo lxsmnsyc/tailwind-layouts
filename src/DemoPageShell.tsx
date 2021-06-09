@@ -13,9 +13,6 @@ import { Project } from './pages/types';
 import { useEnvironmentState } from './components/Environment';
 import loadDefinitions from './utils/load-definitions';
 import { EXTENSIONS, LANGUAGES } from './pages';
-import initTypescript from './utils/monaco/typescript';
-import initSuggestions from './utils/monaco/suggestions';
-import initHover from './utils/monaco/hover';
 import load from './utils/monaco/load';
 
 interface DemoPageShellProps {

@@ -13,7 +13,7 @@ interface Range {
 
 const SUGGESTIONS: languages.CompletionItem[] = CLASSES.map((className) => ({
   label: className,
-  kind: languages.CompletionItemKind.Constant,
+  kind: 14, // languages.CompletionItemKind.Constant,
   insertText: className,
   documentation: {
     value: `\`\`\`css\n${getSheet(className, 'media')}\n\`\`\``,
