@@ -12,8 +12,10 @@ import CompilerError from './components/CompilerError';
 import { Project } from './pages/types';
 import { useEnvironmentState } from './components/Environment';
 import loadDefinitions from './utils/load-definitions';
-import { SKYPACK, UNPKG } from './utils/constants';
 import { EXTENSIONS, LANGUAGES } from './pages';
+import initTypescript from './utils/monaco/typescript';
+import initSuggestions from './utils/monaco/suggestions';
+import initHover from './utils/monaco/hover';
 
 interface DemoPageShellProps {
   title: string;
@@ -61,26 +63,9 @@ export default function DemoPageShell(
 
   useEffect(() => {
     if (monaco) {
-      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-        target: monaco.languages.typescript.ScriptTarget.ES2017,
-        allowNonTsExtensions: true,
-        typeRoots: [
-          SKYPACK,
-          UNPKG,
-        ],
-        jsx: monaco.languages.typescript.JsxEmit.React,
-        jsxFactory: 'React.createElement',
-        noEmit: true,
-        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-        module: monaco.languages.typescript.ModuleKind.ESNext,
-        strict: true,
-        noUnusedLocals: true,
-        noUnusedParameters: true,
-        noImplicitReturns: true,
-        noFallthroughCasesInSwitch: true,
-        importHelpers: true,
-        esModuleInterop: true,
-      });
+      initTypescript(monaco);
+      initSuggestions(monaco);
+      initHover(monaco);
     }
   }, [monaco]);
 
@@ -118,6 +103,7 @@ export default function DemoPageShell(
               loading={<FullLoader />}
               options={{
                 scrollBeyondLastLine: false,
+                colorDecorators: true,
               }}
             />
           </div>
