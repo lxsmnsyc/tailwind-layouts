@@ -3,7 +3,8 @@ export type ProjectMode =
   | 'react'
   | 'preact'
   | 'vue-3'
-  | 'lit-html';
+  | 'lit-html'
+  | 'uhtml';
 
 export type Project = {
   [key in ProjectMode]: string;

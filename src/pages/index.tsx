@@ -20,6 +20,7 @@ export const ENVIRONMENTS: Project = {
   preact: 'Preact',
   'vue-3': 'Vue 3',
   'lit-html': 'lit-html',
+  uhtml: 'uhtml',
 };
 
 export const EXTENSIONS: Project = {
@@ -28,6 +29,7 @@ export const EXTENSIONS: Project = {
   preact: 'tsx',
   'vue-3': 'tsx',
   'lit-html': 'tsx',
+  uhtml: 'tsx',
 };
 
 export const LANGUAGES: Project = {
@@ -36,6 +38,7 @@ export const LANGUAGES: Project = {
   preact: 'typescript',
   'vue-3': 'typescript',
   'lit-html': 'typescript',
+  uhtml: 'typescript',
 };
 
 const PAGES: Record<string, Page> = {

@@ -1,4 +1,4 @@
-import { html, render } from 'https://cdn.skypack.dev/lit-html';
+import { html, render } from 'https://cdn.skypack.dev/uhtml';
 
 function Feedback() {
   return html`
@@ -54,5 +54,5 @@ function Feedback() {
 }
 
 export default function renderApp(root: HTMLDivElement): void {
-  render(Feedback(), root);
+  render(root, Feedback());
 }
