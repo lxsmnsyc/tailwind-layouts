@@ -16,6 +16,7 @@ import { EXTENSIONS, LANGUAGES } from './pages';
 import initTypescript from './utils/monaco/typescript';
 import initSuggestions from './utils/monaco/suggestions';
 import initHover from './utils/monaco/hover';
+import load from './utils/monaco/load';
 
 interface DemoPageShellProps {
   title: string;
@@ -63,9 +64,9 @@ export default function DemoPageShell(
 
   useEffect(() => {
     if (monaco) {
-      initTypescript(monaco);
-      initSuggestions(monaco);
-      initHover(monaco);
+      load(monaco).catch(() => {
+        //
+      });
     }
   }, [monaco]);
 
