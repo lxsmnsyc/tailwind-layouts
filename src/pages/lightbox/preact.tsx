@@ -9,7 +9,7 @@ function Lightbox() {
   return (
     <div className="p-8 w-full h-full flex items-center justify-center">
       <div
-        className={`w-full cursor-pointer overflow-hidden flex items-center justify-center shadow-lg rounded-lg ${expand ? 'fixed top-0 left-0 w-screen h-screen p-8 bg-gray-900 bg-opacity-75 rounded-none border-none z-50' : 'relative'}`}
+        className={`w-full cursor-pointer overflow-hidden flex items-center justify-center filter drop-shadow-lg rounded-lg ${expand ? 'fixed top-0 left-0 w-screen h-screen p-8 bg-gray-900 bg-opacity-75 rounded-none border-none z-50' : 'relative'}`}
         onClick={() => {
           setExpand(!expand);
         }}

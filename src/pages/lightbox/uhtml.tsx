@@ -11,7 +11,7 @@ function Lightbox() {
   return html`
     <div class="p-8 w-full h-full flex items-center justify-center">
       <div
-        class="w-full cursor-pointer overflow-hidden flex items-center justify-center shadow-lg rounded-lg relative"
+        class="w-full cursor-pointer overflow-hidden flex items-center justify-center filter drop-shadow-lg rounded-lg relative"
       >
         <img
           alt="Forest"
