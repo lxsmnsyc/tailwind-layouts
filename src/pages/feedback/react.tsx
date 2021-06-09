@@ -53,7 +53,7 @@ function Feedback() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<Feedback />, root);
 
   return () => {

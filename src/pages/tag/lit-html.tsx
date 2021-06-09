@@ -67,6 +67,6 @@ function Tag() {
   `;
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(Tag(), root);
 }

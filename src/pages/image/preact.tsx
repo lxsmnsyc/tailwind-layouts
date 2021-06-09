@@ -29,7 +29,7 @@ function Image() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const result = render(<Image />, root);
 
   return () => {

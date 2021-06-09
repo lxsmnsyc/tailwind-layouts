@@ -66,7 +66,7 @@ const AvatarDemo = defineComponent({
   }
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(AvatarDemo);
 
   app.mount(root);

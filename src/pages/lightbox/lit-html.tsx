@@ -25,20 +25,22 @@ function Lightbox() {
   `;
 }
 
-function renderFallback(root) {
+function renderFallback(root: HTMLDivElement) {
   root.querySelectorAll('img').forEach((el) => {
-    if (!el.complete) {
+    const parent = el.parentElement;
+
+    if (!el.complete && parent) {
       const fallback = document.createElement('div');
 
       render(Fallback(), fallback);
 
-      el.parentNode.appendChild(fallback);
+      parent.appendChild(fallback);
 
       el.addEventListener('load', () => {
         el.classList.remove('opacity-0');
         el.classList.add('opacity-100');
 
-        el.parentNode.removeChild(fallback);
+        parent.removeChild(fallback);
       });
     } else {
       el.classList.remove('opacity-0');
@@ -47,11 +49,16 @@ function renderFallback(root) {
   });
 }
 
-function createLightbox(root) {
+function createLightbox(root: HTMLDivElement) {
   const el = root.querySelector('img');
 
-  const container = el.parentNode;
-
+  if (!el) {
+    return;
+  }
+  const container = el.parentElement;
+  if (!container) {
+    return;
+  }
   let expanded = false;
 
   container.addEventListener('click', () => {
@@ -66,7 +73,7 @@ function createLightbox(root) {
   });
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(Lightbox(), root);
   renderFallback(root);
   createLightbox(root);

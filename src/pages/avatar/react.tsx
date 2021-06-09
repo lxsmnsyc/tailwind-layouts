@@ -46,7 +46,7 @@ function AvatarDemo() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<AvatarDemo />, root);
 
   return () => {

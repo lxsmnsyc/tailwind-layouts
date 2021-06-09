@@ -36,7 +36,7 @@ const Notification = defineComponent({
   }
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Notification);
 
   app.mount(root);

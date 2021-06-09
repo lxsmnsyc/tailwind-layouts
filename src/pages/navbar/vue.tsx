@@ -29,7 +29,7 @@ const Navbar = defineComponent({
   },
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Navbar);
 
   app.mount(root);

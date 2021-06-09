@@ -83,20 +83,21 @@ function Fallback() {
   `;
 }
 
-function renderFallback(root) {
+function renderFallback(root: HTMLDivElement) {
   root.querySelectorAll('iframe').forEach((el) => {
-    if (!el.complete) {
+    const parent = el.parentElement;
+    if (parent) {
       const fallback = document.createElement('div');
-  
+
       render(Fallback(), fallback);
-  
-      el.parentNode.appendChild(fallback);
-  
+
+      parent.appendChild(fallback);
+
       el.addEventListener('load', () => {
         el.classList.remove('opacity-0');
         el.classList.add('opacity-100');
-  
-        el.parentNode.removeChild(fallback);
+
+        parent.removeChild(fallback);
       });
     } else {
       el.classList.remove('opacity-0');
@@ -105,7 +106,7 @@ function renderFallback(root) {
   });
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(BrowserWindow(), root);
   renderFallback(root);
 }

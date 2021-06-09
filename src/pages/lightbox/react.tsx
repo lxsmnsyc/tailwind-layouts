@@ -29,7 +29,7 @@ function Lightbox() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<Lightbox />, root);
 
   return () => {

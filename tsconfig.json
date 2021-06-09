@@ -1,5 +1,11 @@
 {
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules",
+    "**/react.tsx",
+    "**/vue.tsx",
+    "**/preact.tsx",
+    "**/lit-html.tsx",
+  ],
   "include": ["src", "types"],
   "compilerOptions": {
     "module": "ESNext",

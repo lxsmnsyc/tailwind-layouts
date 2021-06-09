@@ -17,7 +17,7 @@ const DiagonalSection = defineComponent({
   },
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(DiagonalSection);
 
   app.mount(root);

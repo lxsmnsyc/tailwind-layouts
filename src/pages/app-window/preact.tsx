@@ -25,7 +25,7 @@ function AppWindow() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const result = render(<AppWindow />, root);
 
   return () => {

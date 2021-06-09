@@ -28,7 +28,7 @@ function Image() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<Image />, root);
 
   return () => {

@@ -49,7 +49,7 @@ const Snippet = defineComponent({
   },
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Snippet);
 
   app.mount(root);

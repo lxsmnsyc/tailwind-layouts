@@ -52,6 +52,6 @@ function Feedback() {
   `;
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(Feedback(), root);
 }

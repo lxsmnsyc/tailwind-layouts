@@ -68,7 +68,7 @@ function Tag() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const result = render(<Tag />, root);
 
   return () => {

@@ -30,7 +30,7 @@ function Lightbox() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const result = render(<Lightbox />, root);
 
   return () => {

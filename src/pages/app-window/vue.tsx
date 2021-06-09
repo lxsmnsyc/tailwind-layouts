@@ -28,7 +28,7 @@ const AppWindow = defineComponent({
   }
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(AppWindow);
 
   app.mount(root);

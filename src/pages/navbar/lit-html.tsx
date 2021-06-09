@@ -25,6 +25,6 @@ function Navbar() {
   `;
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(Navbar(), root);
 }

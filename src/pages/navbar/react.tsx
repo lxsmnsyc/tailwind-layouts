@@ -26,7 +26,7 @@ function Navbar() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<Navbar />, root);
 
   return () => {

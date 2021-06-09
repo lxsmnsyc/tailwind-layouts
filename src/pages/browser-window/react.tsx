@@ -82,7 +82,7 @@ function BrowserWindow() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<BrowserWindow />, root);
 
   return () => {

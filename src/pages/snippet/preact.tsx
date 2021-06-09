@@ -43,7 +43,7 @@ function Snippet() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const result = render(<Snippet />, root);
 
   return () => {

@@ -37,7 +37,7 @@ const Image = defineComponent({
   }
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Image);
 
   app.mount(root);

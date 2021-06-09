@@ -59,6 +59,6 @@ function Button() {
   `;
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(Button(), root);
 }

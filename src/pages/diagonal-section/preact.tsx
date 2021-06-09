@@ -14,7 +14,7 @@ function DiagonalSection() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const result = render(<DiagonalSection />, root);
 
   return () => {

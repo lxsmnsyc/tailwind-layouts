@@ -68,7 +68,7 @@ function Tag() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<Tag />, root);
 
   return () => {

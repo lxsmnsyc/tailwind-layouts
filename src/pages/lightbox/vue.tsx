@@ -38,7 +38,7 @@ const Lightbox = defineComponent({
   }
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Lightbox);
 
   app.mount(root);

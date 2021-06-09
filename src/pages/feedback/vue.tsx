@@ -56,7 +56,7 @@ const Feedback = defineComponent({
   },
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Feedback);
 
   app.mount(root);

@@ -33,7 +33,7 @@ function Notification() {
   );
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   ReactDOM.render(<Notification />, root);
 
   return () => {

@@ -13,6 +13,6 @@ function DiagonalSection() {
   `;
 }
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): void {
   render(DiagonalSection(), root);
 }

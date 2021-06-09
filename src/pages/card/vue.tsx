@@ -53,7 +53,7 @@ const Card = defineComponent({
   }
 });
 
-export default function renderApp(root) {
+export default function renderApp(root: HTMLDivElement): () => void {
   const app = createApp(Card);
 
   app.mount(root);
