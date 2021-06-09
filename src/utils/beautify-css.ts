@@ -59,7 +59,7 @@ export default function cssbeautify(
     return (c === ' ') || (c === '\n') || (c === '\t') || (c === '\r') || (c === '\f');
   }
 
-  function isQuote(c: string) {
+  function isQuote(c: string | null | undefined) {
     return (c === '\'') || (c === '"');
   }
 
@@ -404,7 +404,7 @@ export default function cssbeautify(
 
     if (state === State.URL) {
       // ')' finishes the URL (only if it is not escaped).
-      if (ch === ')' && formatted.charAt(formatted.length - 1 !== '\\')) {
+      if (ch === ')' && formatted.charAt(formatted.length - 1) !== '\\') {
         formatted += ch;
         state = State.Expression;
         continue;
