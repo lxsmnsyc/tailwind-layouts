@@ -18,7 +18,7 @@ function Lightbox() {
           src="https://source.unsplash.com/1200x630/?forest"
           width="1200"
           height="630"
-          class="w-full h-auto transition-opacity duration-200 opacity-0"
+          class="w-full h-full object-contain transition-opacity duration-200 opacity-0"
         />
       </div>
     </div>
@@ -63,11 +63,11 @@ function createLightbox(root: HTMLDivElement) {
 
   container.addEventListener('click', () => {
     if (expanded) {
-      container.classList.remove(...'fixed top-0 left-0 w-screen h-screen p-16 bg-gray-900 bg-opacity-75 rounded-none border-none z-50'.split(' '));
+      container.classList.remove(...'fixed top-0 left-0 w-screen h-screen p-8 bg-gray-900 bg-opacity-75 rounded-none border-none z-50'.split(' '));
       container.classList.add('relative');
     } else {
       container.classList.remove('relative');
-      container.classList.add(...'fixed top-0 left-0 w-screen h-screen p-16 bg-gray-900 bg-opacity-75 rounded-none border-none z-50'.split(' '));
+      container.classList.add(...'fixed top-0 left-0 w-screen h-screen p-8 bg-gray-900 bg-opacity-75 rounded-none border-none z-50'.split(' '));
     }
     expanded = !expanded;
   });
