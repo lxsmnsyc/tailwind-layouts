@@ -6,7 +6,6 @@ function Feedback() {
       <div class="w-full shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
         <div class="w-full border-b px-4 py-2 dark:border-gray-800">
           <label for="feedback" class="uppercase text-xs text-gray-500 dark:text-gray-400 font-semibold">Feedback</label>
-          <label for="feedback" class="uppercase text-xs text-gray-500 dark:text-gray-400 font-semibold">Feedback</label>
           <textarea
             id="feedback"
             class="mt-2 w-full rounded p-2 outline-none ring-2 ring-gray-300 dark:ring-gray-700 focus-visible:ring-gray-500 dark:focus-visible:ring-gray-400 dark:bg-black"
