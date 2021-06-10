@@ -3,6 +3,7 @@ import { languages } from 'monaco-editor';
 import getRange from '../get-range';
 import getSheet from '../get-sheet';
 import CLASSES from './classes';
+import { getColor } from './colors';
 
 interface Range {
   startLineNumber: number;
@@ -13,7 +14,7 @@ interface Range {
 
 const SUGGESTIONS: languages.CompletionItem[] = CLASSES.map((className) => ({
   label: className,
-  kind: 14, // languages.CompletionItemKind.Constant,
+  kind: getColor(className) ? 19 : 14,
   insertText: className,
   documentation: {
     value: `**CSS Definition**\n\`\`\`css\n${getSheet(className, 'media')}\n\`\`\``,
