@@ -106,6 +106,12 @@ function createLazyClass(prefix: string, config?: any): string[] {
 }
 
 export const VARIANTS = [
+  // Screen variants
+  ...(
+    theme.screens
+      ? Object.keys(theme.screens).map((item) => `${item}:`)
+      : []
+  ),
   'dark:',
   'group',
   'hover:',
@@ -428,12 +434,6 @@ const INTERNAL = [
 const CLASSES = [
   ...VARIANTS,
   ...INTERNAL,
-  // Screen variants
-  ...(
-    theme.screens
-      ? Object.keys(theme.screens).map((item) => `${item}:`)
-      : []
-  ),
   ...createClass('animate', theme.animation),
   ...createLazyClass('bg', theme.backgroundColor),
   ...createClass('bg', theme.backgroundImage),
