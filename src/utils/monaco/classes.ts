@@ -105,8 +105,7 @@ function createLazyClass(prefix: string, config?: any): string[] {
   return [];
 }
 
-const INTERNAL = [
-  // Variants
+export const VARIANTS = [
   'dark:',
   'group',
   'hover:',
@@ -125,6 +124,9 @@ const INTERNAL = [
   'last:',
   'even:',
   'odd:',
+];
+
+const INTERNAL = [
   // Accessibility
   'sr-only',
   'not-sr-only',
@@ -358,6 +360,9 @@ const INTERNAL = [
   'resize-x',
   'resize-y',
   'resize',
+  // Space
+  'space-x-reversed',
+  'space-y-reversed',
   // Table Layout
   'table-layout',
   'table-fixed',
@@ -411,6 +416,7 @@ const INTERNAL = [
 ];
 
 const CLASSES = [
+  ...VARIANTS,
   ...INTERNAL,
   // Screen variants
   ...(
@@ -427,7 +433,19 @@ const CLASSES = [
   ...createLazyClass('border', theme.borderColor),
   ...createClass('border-opacity', theme.borderOpacity),
   ...createClass('rounded', theme.borderRadius),
+  ...createClass('rounded-t', theme.borderRadius),
+  ...createClass('rounded-r', theme.borderRadius),
+  ...createClass('rounded-l', theme.borderRadius),
+  ...createClass('rounded-b', theme.borderRadius),
+  ...createClass('rounded-tr', theme.borderRadius),
+  ...createClass('rounded-tl', theme.borderRadius),
+  ...createClass('rounded-br', theme.borderRadius),
+  ...createClass('rounded-bl', theme.borderRadius),
   ...createClass('border', theme.borderWidth),
+  ...createClass('border-t', theme.borderWidth),
+  ...createClass('border-r', theme.borderWidth),
+  ...createClass('border-b', theme.borderWidth),
+  ...createClass('border-l', theme.borderWidth),
   ...createClass('shadow', theme.boxShadow),
   ...createClass('cursor', theme.cursor),
   ...createLazyClass('divide', theme.divideColor),
@@ -512,5 +530,16 @@ const CLASSES = [
   ...createLazyClass('w', theme.width),
   ...createClass('z', theme.zIndex),
 ];
+
+export function validClass(string: string): boolean {
+  // Check if string starts with a variant
+  const variant = VARIANTS.find((item) => string.startsWith(item));
+
+  if (variant) {
+    return validClass(string.replace(variant, ''));
+  }
+
+  return CLASSES.includes(string);
+}
 
 export default CLASSES;

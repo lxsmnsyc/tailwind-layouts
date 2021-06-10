@@ -2,6 +2,7 @@ import { useMonaco } from '@monaco-editor/react';
 import { languages } from 'monaco-editor';
 import getRange from '../get-range';
 import getSheet from '../get-sheet';
+import { validClass } from './classes';
 
 interface Range {
   startLineNumber: number;
@@ -63,10 +64,8 @@ export default function initHover(monaco: NonNullable<ReturnType<typeof useMonac
       const minColumn = getRange(line, position.column - 1, -1) + 1;
       const maxColumn = getRange(line, position.column - 1, 1);
       const word = line.substring(minColumn, maxColumn);
-      if (/\s+/.exec(word) || word === '') {
-        return {
-          contents: [],
-        };
+      if (/\s+/.exec(word) || word === '' || !validClass(word)) {
+        return null;
       }
       const range = {
         startLineNumber: position.lineNumber,
@@ -89,10 +88,8 @@ export default function initHover(monaco: NonNullable<ReturnType<typeof useMonac
       const minColumn = getRange(line, position.column - 1, -1) + 1;
       const maxColumn = getRange(line, position.column - 1, 1);
       const word = line.substring(minColumn, maxColumn);
-      if (/\s+/.exec(word) || word === '') {
-        return {
-          contents: [],
-        };
+      if (/\s+/.exec(word) || word === '' || !validClass(word)) {
+        return null;
       }
       const range = {
         startLineNumber: position.lineNumber,

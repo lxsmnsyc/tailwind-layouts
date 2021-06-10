@@ -1,422 +1,194 @@
-// BASED ON: https://github.com/senchalabs/cssbeautify/blob/master/cssbeautify.js
+/* eslint-disable no-param-reassign */
+import csstree, { CssNode, List } from 'css-tree';
 
-interface Options {
-  indent: string;
-  openbrace: string;
-  autosemicolon: boolean;
+const INDENT = '\t';
+
+function wrap(list: List<CssNode> | CssNode[] | null): CssNode[] {
+  if (list) {
+    return Array.isArray(list) ? list : list.toArray();
+  }
+  return [];
 }
 
-const DEFAULT_OPTIONS: Options = {
-  indent: '  ',
-  openbrace: 'end-of-line',
-  autosemicolon: true,
-};
-
-const enum State {
-  Start = 0,
-  AtRule = 1,
-  Block = 2,
-  Selector = 3,
-  Ruleset = 4,
-  Property = 5,
-  Separator = 6,
-  Expression = 7,
-  URL = 8,
+function stringify(node: CssNode, level = 0): string {
+  switch (node.type) {
+    case 'AnPlusB': {
+      const a = node.a ? `${node.a}n` : '';
+      if (node.b) {
+        const b = node.b.startsWith('-')
+          ? `- ${node.b.replace('-', '')}`
+          : `+ ${node.b}`;
+        return `${a}${b}`;
+      }
+      return a;
+    }
+    case 'Atrule': {
+      const block = node.block
+        ? ` ${stringify(node.block, level)}`
+        : ';';
+      const prelude = node.prelude
+        ? ` ${stringify(node.prelude, level)}`
+        : '';
+      return `@${node.name}${prelude}${block}`;
+    }
+    case 'AtrulePrelude':
+      return wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join('');
+    case 'AttributeSelector': {
+      const name = stringify(node.name, level);
+      const matcher = node.matcher ?? '';
+      const value = node.value
+        ? stringify(node.value, level)
+        : '';
+      const flags = node.flags
+        ? ` ${node.flags}`
+        : '';
+      return `[${name}${matcher}${value}${flags}]`;
+    }
+    case 'Block': {
+      const children = wrap(node.children)
+        .map((child) => stringify(child, level + 1))
+        .join('\n')
+        .split('\n')
+        .map((child) => `${INDENT}${child}`)
+        .join('\n');
+      return `{\n${children}\n}`;
+    }
+    case 'Brackets': {
+      const children = wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join(' ');
+      return `[${children}]`;
+    }
+    case 'CDC':
+    case 'CDO':
+      return '';
+    case 'ClassSelector':
+      return `.${node.name}`;
+    case 'Combinator':
+      return ` ${node.name} `;
+    case 'Comment':
+      return `/* ${node.value} */`;
+    case 'Declaration': {
+      const important = node.important ? ' !important' : '';
+      const value = stringify(node.value, level);
+      return `${node.property}: ${value}${important};`;
+    }
+    case 'DeclarationList':
+      // TODO
+      return '';
+    case 'Dimension':
+      return `${node.value}${node.unit}`;
+    case 'Function': {
+      const children = wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join('')
+        .split(',')
+        .join(', ');
+      return `${node.name}(${children})`;
+    }
+    case 'Hash':
+      return `#${node.value}`;
+    case 'IdSelector':
+      return `#${node.name}`;
+    case 'Identifier':
+      return node.name;
+    case 'MediaFeature': {
+      const value = node.value
+        ? `: ${stringify(node.value, level)}`
+        : '';
+      return `(${node.name}${value})`;
+    }
+    case 'MediaQuery':
+      return wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join(' ');
+    case 'MediaQueryList':
+      return wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join(', ');
+    case 'Nth': {
+      const nth = stringify(node.nth, level);
+      const selector = node.selector
+        ? ` of ${stringify(node.selector, level)}`
+        : '';
+      return `${nth}${selector}`;
+    }
+    case 'Number':
+      return node.value;
+    case 'Operator':
+      return node.value;
+    case 'Parentheses': {
+      const children = wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join('');
+      return `(${children})`;
+    }
+    case 'Percentage':
+      return `${node.value}%`;
+    case 'PseudoClassSelector': {
+      const children = node.children
+        ? `(${wrap(node.children)
+          .map((child) => stringify(child, level))
+          .join(' ')})`
+        : '';
+      return `:${node.name}${children}`;
+    }
+    case 'PseudoElementSelector': {
+      const children = node.children
+        ? `(${wrap(node.children)
+          .map((child) => stringify(child, level))
+          .join(' ')})`
+        : '';
+      return `::${node.name}${children}`;
+    }
+    case 'Ratio':
+      return `${node.left} / ${node.right}`;
+    case 'Raw':
+      return node.value;
+    case 'Rule': {
+      const prelude = stringify(node.prelude, level);
+      const block = stringify(node.block, level + 1);
+      return `${prelude} ${block}`;
+    }
+    case 'Selector':
+      return wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join('');
+    case 'SelectorList':
+      return wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join(',\n');
+    case 'String':
+      return node.value;
+    case 'StyleSheet': {
+      const children = wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join('\n');
+      return children;
+    }
+    case 'TypeSelector':
+      return node.name;
+    case 'UnicodeRange':
+      return node.value;
+    case 'Url':
+      return `url(${stringify(node.value, level)})`;
+    case 'Value':
+      return wrap(node.children)
+        .map((child) => stringify(child, level))
+        .join('');
+    case 'WhiteSpace':
+      return node.value;
+    default:
+      return '';
+  }
 }
 
 export default function cssbeautify(
-  style: string,
-  opt: Partial<Options> = {},
+  text: string,
 ): string {
-  const options = {
-    ...DEFAULT_OPTIONS,
-    ...opt,
-  };
-  const { length } = style;
-  const blocks: string[] = [];
-  let formatted = '';
-  let ch: string;
-  let ch2: string;
-  let str;
-  let state;
-  let depth: number;
-  let quote;
-  let comment;
-  let openbracesuffix = true;
-  let autosemicolon = false;
+  const ast = csstree.parse(text);
 
-  if (typeof options.indent === 'undefined') {
-    options.indent = '    ';
-  }
-  if (typeof options.openbrace === 'string') {
-    openbracesuffix = (options.openbrace === 'end-of-line');
-  }
-  if (typeof options.autosemicolon === 'boolean') {
-    autosemicolon = options.autosemicolon;
-  }
-
-  function isWhitespace(c: string) {
-    return (c === ' ') || (c === '\n') || (c === '\t') || (c === '\r') || (c === '\f');
-  }
-
-  function isQuote(c: string | null | undefined) {
-    return (c === '\'') || (c === '"');
-  }
-
-  // FIXME: handle Unicode characters
-  function isName(c: string) {
-    return (ch >= 'a' && ch <= 'z')
-          || (ch >= 'A' && ch <= 'Z')
-          || (ch >= '0' && ch <= '9')
-          || '-_*.:#[]'.indexOf(c) >= 0;
-  }
-
-  function appendIndent() {
-    for (let i = depth; i > 0; i -= 1) {
-      formatted += options.indent;
-    }
-  }
-
-  function openBlock() {
-    formatted = formatted.trimRight();
-    if (openbracesuffix) {
-      formatted += ' {';
-    } else {
-      formatted += '\n';
-      appendIndent();
-      formatted += '{';
-    }
-    if (ch2 !== '\n') {
-      formatted += '\n';
-    }
-    depth += 1;
-  }
-
-  function closeBlock() {
-    let last;
-    depth -= 1;
-    formatted = formatted.trimRight();
-
-    if (formatted.length > 0 && autosemicolon) {
-      last = formatted.charAt(formatted.length - 1);
-      if (last !== ';' && last !== '{') {
-        formatted += ';';
-      }
-    }
-
-    formatted += '\n';
-    appendIndent();
-    formatted += '}';
-    blocks.push(formatted);
-    formatted = '';
-  }
-
-  depth = 0;
-  state = State.Start;
-  comment = false;
-
-  // We want to deal with LF (\n) only
-  style = style.replace(/\r\n/g, '\n');
-
-  let index = 0;
-  while (index < length) {
-    ch = style.charAt(index);
-    ch2 = style.charAt(index + 1);
-    index += 1;
-
-    // Inside a string literal?
-    if (isQuote(quote)) {
-      formatted += ch;
-      if (ch === quote) {
-        quote = null;
-      }
-      if (ch === '\\' && ch2 === quote) {
-        // Don't treat escaped character as the closing quote
-        formatted += ch2;
-        index += 1;
-      }
-      continue;
-    }
-
-    // Starting a string literal?
-    if (isQuote(ch)) {
-      formatted += ch;
-      quote = ch;
-      continue;
-    }
-
-    // Comment
-    if (comment) {
-      formatted += ch;
-      if (ch === '*' && ch2 === '/') {
-        comment = false;
-        formatted += ch2;
-        index += 1;
-      }
-      continue;
-    }
-    if (ch === '/' && ch2 === '*') {
-      comment = true;
-      formatted += ch;
-      formatted += ch2;
-      index += 1;
-      continue;
-    }
-
-    if (state === State.Start) {
-      if (blocks.length === 0) {
-        if (isWhitespace(ch) && formatted.length === 0) {
-          continue;
-        }
-      }
-
-      // Copy white spaces and control characters
-      if (ch <= ' ' || ch.charCodeAt(0) >= 128) {
-        state = State.Start;
-        formatted += ch;
-        continue;
-      }
-
-      // Selector or at-rule
-      if (isName(ch) || (ch === '@')) {
-        // Clear trailing whitespaces and linefeeds.
-        str = formatted.trimRight();
-
-        if (str.length === 0) {
-          // If we have empty string after removing all the trailing
-          // spaces, that means we are right after a block.
-          // Ensure a blank line as the separator.
-          if (blocks.length > 0) {
-            formatted = '\n\n';
-          }
-        } else if (str.charAt(str.length - 1) === '}'
-                          || str.charAt(str.length - 1) === ';') {
-          // After finishing a ruleset or directive statement,
-          // there should be one blank line.
-          formatted = `${str}\n\n`;
-        } else {
-          // After block comment, keep all the linefeeds but
-          // start from the first column (remove whitespaces prefix).
-          while (true) {
-            ch2 = formatted.charAt(formatted.length - 1);
-            if (ch2 !== ' ' && ch2.charCodeAt(0) !== 9) {
-              break;
-            }
-            formatted = formatted.substr(0, formatted.length - 1);
-          }
-        }
-        formatted += ch;
-        state = (ch === '@') ? State.AtRule : State.Selector;
-        continue;
-      }
-    }
-
-    if (state === State.AtRule) {
-      // ';' terminates a statement.
-      if (ch === ';') {
-        formatted += ch;
-        state = State.Start;
-        continue;
-      }
-
-      // '{' starts a block
-      if (ch === '{') {
-        str = formatted.trimRight();
-        openBlock();
-        state = (str === '@font-face') ? State.Ruleset : State.Block;
-        continue;
-      }
-
-      formatted += ch;
-      continue;
-    }
-
-    if (state === State.Block) {
-      // Selector
-      if (isName(ch)) {
-        // Clear trailing whitespaces and linefeeds.
-        str = formatted.trimRight();
-
-        if (str.length === 0) {
-          // If we have empty string after removing all the trailing
-          // spaces, that means we are right after a block.
-          // Ensure a blank line as the separator.
-          if (blocks.length > 0) {
-            formatted = '\n\n';
-          }
-        } else if (str.charAt(str.length - 1) === '}') {
-          // Insert blank line if necessary.
-          formatted = `${str}\n\n`;
-        } else {
-          // After block comment, keep all the linefeeds but
-          // start from the first column (remove whitespaces prefix).
-          while (true) {
-            ch2 = formatted.charAt(formatted.length - 1);
-            if (ch2 !== ' ' && ch2.charCodeAt(0) !== 9) {
-              break;
-            }
-            formatted = formatted.substr(0, formatted.length - 1);
-          }
-        }
-
-        appendIndent();
-        formatted += ch;
-        state = State.Selector;
-        continue;
-      }
-
-      // '}' resets the state.
-      if (ch === '}') {
-        closeBlock();
-        state = State.Start;
-        continue;
-      }
-
-      formatted += ch;
-      continue;
-    }
-
-    if (state === State.Selector) {
-      // '{' starts the ruleset.
-      if (ch === '{') {
-        openBlock();
-        state = State.Ruleset;
-        continue;
-      }
-
-      // '}' resets the state.
-      if (ch === '}') {
-        closeBlock();
-        state = State.Start;
-        continue;
-      }
-
-      formatted += ch;
-      continue;
-    }
-
-    if (state === State.Ruleset) {
-      // '}' finishes the ruleset.
-      if (ch === '}') {
-        closeBlock();
-        state = State.Start;
-        if (depth > 0) {
-          state = State.Block;
-        }
-        continue;
-      }
-
-      // Make sure there is no blank line or trailing spaces inbetween
-      if (ch === '\n') {
-        formatted = formatted.trimRight();
-        formatted += '\n';
-        continue;
-      }
-
-      // property name
-      if (!isWhitespace(ch)) {
-        formatted = formatted.trimRight();
-        formatted += '\n';
-        appendIndent();
-        formatted += ch;
-        state = State.Property;
-        continue;
-      }
-      formatted += ch;
-      continue;
-    }
-
-    if (state === State.Property) {
-      // ':' concludes the property.
-      if (ch === ':') {
-        formatted = formatted.trimRight();
-        formatted += ': ';
-        state = State.Expression;
-        if (isWhitespace(ch2)) {
-          state = State.Separator;
-        }
-        continue;
-      }
-
-      // '}' finishes the ruleset.
-      if (ch === '}') {
-        closeBlock();
-        state = State.Start;
-        if (depth > 0) {
-          state = State.Block;
-        }
-        continue;
-      }
-
-      formatted += ch;
-      continue;
-    }
-
-    if (state === State.Separator) {
-      // Non-whitespace starts the expression.
-      if (!isWhitespace(ch)) {
-        formatted += ch;
-        state = State.Expression;
-        continue;
-      }
-
-      // Anticipate string literal.
-      if (isQuote(ch2)) {
-        state = State.Expression;
-      }
-
-      continue;
-    }
-
-    if (state === State.Expression) {
-      // '}' finishes the ruleset.
-      if (ch === '}') {
-        closeBlock();
-        state = State.Start;
-        if (depth > 0) {
-          state = State.Block;
-        }
-        continue;
-      }
-
-      // ';' completes the declaration.
-      if (ch === ';') {
-        formatted = formatted.trimRight();
-        formatted += ';\n';
-        state = State.Ruleset;
-        continue;
-      }
-
-      formatted += ch;
-
-      if (ch === '(') {
-        if (formatted.charAt(formatted.length - 2) === 'l'
-                      && formatted.charAt(formatted.length - 3) === 'r'
-                      && formatted.charAt(formatted.length - 4) === 'u') {
-          // URL starts with '(' and closes with ')'.
-          state = State.URL;
-          continue;
-        }
-      }
-
-      continue;
-    }
-
-    if (state === State.URL) {
-      // ')' finishes the URL (only if it is not escaped).
-      if (ch === ')' && formatted.charAt(formatted.length - 1) !== '\\') {
-        formatted += ch;
-        state = State.Expression;
-        continue;
-      }
-    }
-
-    // The default action is to copy the character (to prevent
-    // infinite loop).
-    formatted += ch;
-  }
-
-  formatted = blocks.join('') + formatted;
-
-  return formatted;
+  return stringify(ast);
 }

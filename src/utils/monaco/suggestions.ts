@@ -57,7 +57,7 @@ export default function initSuggestions(monaco: NonNullable<ReturnType<typeof us
       const range = {
         startLineNumber: position.lineNumber,
         endLineNumber: position.lineNumber,
-        startColumn: minColumn - 1,
+        startColumn: minColumn,
         endColumn: maxColumn + 1,
       };
       return {
@@ -79,7 +79,7 @@ export default function initSuggestions(monaco: NonNullable<ReturnType<typeof us
       const range = {
         startLineNumber: position.lineNumber,
         endLineNumber: position.lineNumber,
-        startColumn: minColumn - 1,
+        startColumn: minColumn,
         endColumn: maxColumn + 1,
       };
       return {
