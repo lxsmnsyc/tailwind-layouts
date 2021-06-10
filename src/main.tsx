@@ -6,7 +6,7 @@ import { aspectRatio } from '@twind/aspect-ratio';
 import App from './App';
 
 import 'twind/shim';
-import 'tailwindcss/tailwind.css';
+import './tailwind.css';
 
 setup({
   darkMode: 'class',
