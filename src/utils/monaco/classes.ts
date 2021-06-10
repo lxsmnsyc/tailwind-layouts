@@ -237,6 +237,11 @@ const INTERNAL = [
   // Filter
   'filter',
   'filter-none',
+  // Flex Direction
+  'flex-row',
+  'flex-col',
+  'flex-row-reverse',
+  'flex-col-reverse',
   // Floats
   'float-right',
   'float-left',
@@ -257,6 +262,11 @@ const INTERNAL = [
   'tabular-nums',
   'diagonal-fractions',
   'stacked-fractions',
+  // Grid Auto Flow
+  'grid-flow-row',
+  'grid-flow-col',
+  'grid-flow-row-dense',
+  'grid-flow-col-dense',
   // Isolation
   'isolate',
   'isolation-auto',
@@ -424,7 +434,7 @@ const CLASSES = [
       ? Object.keys(theme.screens).map((item) => `${item}:`)
       : []
   ),
-  ...createClass('animation', theme.animation),
+  ...createClass('animate', theme.animation),
   ...createLazyClass('bg', theme.backgroundColor),
   ...createClass('bg', theme.backgroundImage),
   ...createLazyClass('bg-opacity', theme.backgroundOpacity),
