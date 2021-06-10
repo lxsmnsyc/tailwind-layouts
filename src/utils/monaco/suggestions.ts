@@ -16,7 +16,7 @@ const SUGGESTIONS: languages.CompletionItem[] = CLASSES.map((className) => ({
   kind: 14, // languages.CompletionItemKind.Constant,
   insertText: className,
   documentation: {
-    value: `\`\`\`css\n${getSheet(className, 'media')}\n\`\`\``,
+    value: `**CSS Definition**\n\`\`\`css\n${getSheet(className, 'media')}\n\`\`\``,
   },
   range: {
     startLineNumber: 1,

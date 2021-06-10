@@ -19,6 +19,9 @@ function createHover(
     return {
       contents: [
         {
+          value: '**CSS Definition**',
+        },
+        {
           value: '`darkMode: "media"`',
         },
         {
@@ -36,6 +39,9 @@ function createHover(
   }
   return {
     contents: [
+      {
+        value: '**CSS Definition**',
+      },
       {
         value: `\`\`\`css\n${getSheet(value, 'media')}\n\`\`\``,
       },
