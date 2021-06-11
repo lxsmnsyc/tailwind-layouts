@@ -6,17 +6,18 @@ import PlaygroundContent from './components/Playground';
 import { Playground } from './components/PlaygroundModel';
 
 interface DemoPageShellProps {
+  id: string;
   title: string;
   code: Project;
 }
 
 export default function DemoPageShell(
-  { title, code }: DemoPageShellProps,
+  { title, code, id }: DemoPageShellProps,
 ): JSX.Element {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
-    <Playground.Provider title={title} code={code}>
+    <Playground.Provider id={id} title={title} code={code}>
       <div className="overflow-hidden w-full h-screen flex-1 flex items-stretch justify-center flex-col">
         <div className="flex-none flex items-center justify-between border-b dark:border-gray-800">
           <div className="p-4 font-bold text-xl">

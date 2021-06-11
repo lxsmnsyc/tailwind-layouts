@@ -4,11 +4,12 @@ import { Project } from '../pages/types';
 import { useEnvironmentState } from './Environment';
 
 interface PlaygroundProps {
+  id: string;
   code: Project;
   title: string;
 }
 
-export const Playground = createModel(({ title, code }: PlaygroundProps) => {
+export const Playground = createModel(({ title, code, id }: PlaygroundProps) => {
   const environment = useEnvironmentState();
 
   const [currentCode, setCurrentCode] = useState<Project>(code);
@@ -43,6 +44,7 @@ export const Playground = createModel(({ title, code }: PlaygroundProps) => {
   }, [currentCode]);
 
   return {
+    id,
     title,
     code,
     state: {
@@ -59,6 +61,11 @@ export const Playground = createModel(({ title, code }: PlaygroundProps) => {
     },
   };
 });
+
+export const usePlaygroundId = createSelector(
+  Playground,
+  (state) => state.id,
+);
 
 export const usePlaygroundTitle = createSelector(
   Playground,

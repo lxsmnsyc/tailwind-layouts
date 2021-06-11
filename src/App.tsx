@@ -21,6 +21,7 @@ function Internal(): JSX.Element {
       <PageShell>
         <Suspense fallback={<FullLoader />}>
           <DemoPageShell
+            id={params.id}
             title={PAGES[params.id].title}
             code={PAGES[params.id].code}
           />
