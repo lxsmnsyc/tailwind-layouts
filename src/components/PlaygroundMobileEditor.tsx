@@ -40,7 +40,7 @@ export default function PlaygroundCodejarEditor(): JSX.Element {
 
   return (
     <div
-      className="w-full h-full flex editor whitespace-pre"
+      className="w-full h-full flex editor whitespace-pre overflow-auto"
       ref={container}
     >
       <Interweave
