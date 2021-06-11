@@ -37,7 +37,20 @@
         document.body.replaceChild(root, document.getElementById('root'));
       }
 
+      function toggleCover(show) {
+        const cover = document.getElementById('cover');
+        if (show) {
+          cover.classList.remove('opacity-0');
+          cover.classList.add('opacity-100');
+        } else {
+          cover.classList.remove('opacity-100');
+          cover.classList.add('opacity-0');
+        }
+      }
+
       window.addEventListener('message', (event) => {
+        toggleCover(true);
+
         // Check if parent window requested a root reconstruction
         if (refreshKey !== event.data.refresh) {
           refreshKey = event.data.refresh;
@@ -59,22 +72,23 @@
           cleanup = mod.default(document.getElementById('root'));
           // Send parent window confirmation
           window.parent.postMessage('', '*');
+
+          toggleCover(false);
         }).catch((error) => {
-          const overlay = document.createElement('div');
-          overlay.className = "fixed z-40 top-0 left-0 w-full h-full bg-gray-900 bg-opacity-75";
-          overlay.innerHTML = `
-          <div class="flex items-center justify-center">
-            <div class="m-4 w-3/4 p-4 font-mono rounded-lg bg-red-500 text-white">
-              <div class="mb-2">
-                <span class="text-lg">${error.name}: ${error.message}</span>
-              </div>
-              <p class="p-2 overflow-x-auto bg-gray-900 rounded-lg whitespace-pre">${error.stack}</p>
-            </div>
-          </div>
-          `;
-          document.body.appendChild(overlay);
+          toggleCover(false);
+          const overlay = document.getElementById('overlay');
+          overlay.classList.remove('opacity-0', 'pointer-events-none');
+          overlay.classList.add('opacity-100', 'pointer-events-auto');
+          
+          const overlayMessage = document.getElementById('overlay-message');
+          overlayMessage.textContent = `${error.name}: ${error.message}`;
+
+          const overlayStack = document.getElementById('overlay-stack');
+          overlayStack.textContent = error.stack;
+
           cleanup = () => {
-            document.body.removeChild(overlay);
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            overlay.classList.remove('opacity-100', 'pointer-events-auto');
           };
         });
       });
@@ -85,7 +99,7 @@
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        const windowSize = document.getElementById('window-size');
+        const windowSize = document.getElementById('resize-tracker');
         windowSize.classList.remove('opacity-0', 'scale-50');
         windowSize.classList.add('opacity-100', 'scale-100');
 
@@ -99,7 +113,7 @@
           windowSize.classList.add('opacity-0', 'scale-50');
         }, 1000);
 
-        const windowSizeContent = document.getElementById('window-size-content');
+        const windowSizeContent = document.getElementById('resize-tracker-content');
         windowSizeContent.innerHTML = `${width} x ${height}`;
       }
 
@@ -111,8 +125,22 @@
   <body class="w-screen h-screen bg-white text-black dark:bg-black dark:text-white">
     <div id="root" class="w-full h-full">
     </div>
-    <div id="window-size" class="fixed z-50 right-0 top-0 rounded-lg m-2 transition transform-gpu duration-300 opacity-0 scale-75 bg-gray-900">
-      <div id="window-size-content" class="px-2 py-1 text-xs text-white font-semibold">
+    <div id="portal" class="fixed top-0 left-0 z-50 w-full h-full pointer-events-none"> 
+      <div id="cover" class="absolute top-0 left-0 w-full h-full bg-white dark:bg-black transition-opacity duration-200 opacity-100 pointer-events-none">
+      </div>
+      <div id="resize-tracker" class="absolute right-0 top-0 rounded-lg m-2 transition transform-gpu duration-200 opacity-0 scale-75 bg-gray-900 pointer-events-none">
+        <div id="resize-tracker-content" class="px-2 py-1 text-xs text-white font-semibold">
+        </div>
+      </div>
+      <div id="overlay" class="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-75 transition duration-200 opacity-0 flex items-center justify-center pointer-events-none">
+        <div class="flex items-center justify-center w-full h-full p-4">
+          <div class="w-full p-4 font-mono rounded-lg bg-red-500 text-white">
+            <div class="mb-2">
+              <span id="overlay-message" class="text-lg"></span>
+            </div>
+            <p id="overlay-stack" class="p-2 overflow-x-auto bg-gray-900 rounded-lg whitespace-pre"></p>
+          </div>
+        </div>
       </div>
     </div>
     <script src="https://unpkg.com/source-map-support@0.5.19/browser-source-map-support.js"></script>
