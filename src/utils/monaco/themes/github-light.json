@@ -161,7 +161,7 @@
       }
     },
     {
-      "scope": ["constant", "entity.name.constant", "variable.other.constant", "variable.language"],
+      "scope": ["constant", "entity.name.constant", "attribute.name", "variable.other.constant", "variable.language"],
       "settings": {
         "foreground": "#005cc5"
       }
@@ -179,7 +179,7 @@
       }
     },
     {
-      "scope": "entity.name.tag",
+      "scope": ["entity.name.tag", "tag"],
       "settings": {
         "foreground": "#22863a"
       }
@@ -205,6 +205,7 @@
     {
       "scope": [
         "string",
+        "attribute.value",
         "punctuation.definition.string",
         "string punctuation.section.embedded source"
       ],
