@@ -64,7 +64,7 @@ export default function PlaygroundContent(
           </div>
         </div>
         <div className="border-b dark:border-gray-800 md:border-l relative">
-          <div className="w-full h-full absolute overflow-auto">
+          <div className="w-full h-full absolute">
             <ErrorBoundary
               key={retryKey}
               onError={(err) => {
