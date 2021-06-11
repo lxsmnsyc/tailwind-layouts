@@ -3,6 +3,7 @@ declare module 'react-split' {
   import { Options } from 'split.js';
 
   export interface SplitProps {
+      className?: string;
       sizes?: Options['sizes']
       minSize?: Options['minSize']
       maxSize?: Options['maxSize']
@@ -22,7 +23,7 @@ declare module 'react-split' {
       collapsed?: number
   }
 
-  declare class Split extends React.Component<SplitProps, any> {}
+  class Split extends React.Component<SplitProps, any> {}
 
   export default Split;
 }
