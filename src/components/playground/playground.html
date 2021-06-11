@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" hidden>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
+    <script type="twind-config">
+      {
+        "darkMode": "class"
+      }
+    </script>
+    <script type="module">
+      let cleanup;
+
+      function syncDarkMode() {
+        const value = localStorage.getItem('theme-preference');
+
+        if (value === 'dark' || (window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }
+
+      syncDarkMode();
+
+      window.addEventListener('storage', (event) => {
+        syncDarkMode();
+      });
+
+      let refreshKey;
+
+      function createRoot() {
+        const root = document.createElement('div');
+        root.setAttribute('id', 'root');
+        root.className = 'w-full h-full';
+        document.body.replaceChild(root, document.getElementById('root'));
+      }
+
+      window.addEventListener('message', (event) => {
+        // Check if parent window requested a root reconstruction
+        if (refreshKey !== event.data.refresh) {
+          refreshKey = event.data.refresh;
+          createRoot();
+        }
+
+        // Interpret received code
+        import(event.data.code).then((mod) => {
+          // Perform cleanup before running new code
+          if (cleanup) {
+            try {
+              cleanup();
+            } catch (error) {
+              cleanup = undefined;
+              throw error;
+            }
+          }
+          // Evaluate module
+          cleanup = mod.default(document.getElementById('root'));
+          // Send parent window confirmation
+          window.parent.postMessage('', '*');
+        }).catch((error) => {
+          const overlay = document.createElement('div');
+          overlay.className = "fixed z-40 top-0 left-0 w-full h-full bg-gray-900 bg-opacity-75";
+          overlay.innerHTML = `
+          <div class="flex items-center justify-center">
+            <div class="m-4 w-3/4 p-4 font-mono rounded-lg bg-red-500 text-white">
+              <div class="mb-2">
+                <span class="text-lg">${error.name}: ${error.message}</span>
+              </div>
+              <p class="p-2 overflow-x-auto bg-gray-900 rounded-lg whitespace-pre">${error.stack}</p>
+            </div>
+          </div>
+          `;
+          document.body.appendChild(overlay);
+          cleanup = () => {
+            document.body.removeChild(overlay);
+          };
+        });
+      });
+
+      let timeout;
+
+      function renderResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const windowSize = document.getElementById('window-size');
+        windowSize.classList.remove('opacity-0');
+        windowSize.classList.add('opacity-100');
+
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = undefined;
+        }
+
+        timeout = setTimeout(() => {
+          windowSize.classList.remove('opacity-100');
+          windowSize.classList.add('opacity-0');
+        }, 1000);
+
+        const windowSizeContent = document.getElementById('window-size-content');
+        windowSizeContent.innerHTML = `${width} x ${height}`;
+      }
+
+      window.addEventListener('resize', renderResize);
+
+      renderResize();
+    </script>
+  </head>
+  <body class="w-screen h-screen bg-white text-black dark:bg-black dark:text-white">
+    <div id="root" class="w-full h-full">
+    </div>
+    <div id="window-size" class="fixed z-50 right-0 top-0 rounded-lg m-2 transition-opacity duration-300 opacity-0 bg-gray-900">
+      <div id="window-size-content" class="px-2 py-1 text-xs text-white font-semibold">
+      </div>
+    </div>
+    <script src="https://unpkg.com/source-map-support@0.5.19/browser-source-map-support.js"></script>
+    <script>sourceMapSupport.install();</script>
+  </body>
+</html>

@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { EXTENSIONS } from '../pages';
 import createResource from '../utils/create-resource';
 import { useEnvironmentState } from './Environment';
+import IFRAME from './playground/playground.html?raw';
 
 export interface CompilerBaseProps {
   code?: string;
@@ -16,10 +17,6 @@ export interface CompilerProps extends CompilerBaseProps {
 }
 
 type ExportCleanup = (() => void) | undefined | void;
-
-interface ComponentExport {
-  default: (root: HTMLDivElement) => ExportCleanup;
-}
 
 const esbuildResource = createResource(() => esbuild.initialize({
   wasmURL: esbuildWASM,
@@ -36,9 +33,9 @@ export default function Compiler(
   esbuildResource.read();
 
   const environment = useEnvironmentState();
-  const [refreshKey, setRefreshKey] = useState(0);
-  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const [container, setContainer] = useState<HTMLIFrameElement | null>(null);
   const cleanup = useRef<ExportCleanup>();
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     setRefreshKey((current) => current + 1);
@@ -54,88 +51,108 @@ export default function Compiler(
     let mounted = true;
 
     if (code && container) {
-      if (EXTENSIONS[environment] === 'tsx') {
-        esbuild.transform(code, {
-          format: 'esm',
-          target: 'es2017',
-          jsxFactory: 'React.createElement',
-          jsxFragment: 'React.Fragment',
-          loader: 'tsx',
-          globalName: 'Component',
-          sourcemap: 'inline',
-          tsconfigRaw: JSON.stringify({
-            compilerOptions: {
-              module: 'ESNext',
-              lib: ['ESNext'],
-              importHelpers: true,
-              declaration: true,
-              sourceMap: true,
-              strict: true,
-              noUnusedLocals: true,
-              noUnusedParameters: true,
-              noImplicitReturns: true,
-              noFallthroughCasesInSwitch: true,
-              moduleResolution: 'node',
-              jsx: 'react',
-              esModuleInterop: true,
-              target: 'ES2017',
-            },
-          }),
-        }).then((result) => {
-          if (mounted) {
-            const encodedJs = encodeURIComponent(result.code);
-            const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
-            return import(/* @vite-ignore */dataUri).then((mod: ComponentExport) => {
-              if (cleanup.current) {
-                try {
-                  cleanup.current();
-                } catch (error) {
-                  cleanup.current = undefined;
-                  throw error;
-                }
+      const transformedCode = EXTENSIONS[environment] === 'tsx'
+        ? code
+        // https://stackoverflow.com/questions/56647747/how-to-base64-encode-emojis-in-javascript
+        : `
+        export default function renderApp(root: HTMLDivElement): () => void {
+          root.innerHTML = decodeURIComponent(escape(atob('${btoa(unescape(encodeURIComponent(code)))}')));
+        
+          root.querySelectorAll('script').forEach((item) => {
+            // Get the content
+            const content = item.textContent;
+            if (content) {
+              // Create replacement
+              const newScript = document.createElement('script');
+              const textContent = document.createTextNode(content);
+              // Update content
+              newScript.appendChild(textContent);
+              item.parentNode?.replaceChild(newScript, item);
+            }
+          });
+        
+          return () => {
+            while (root.firstChild) {
+              if (root.lastChild) {
+                root.removeChild(root.lastChild);
               }
-              cleanup.current = mod.default(container);
-              onLoad?.();
+            }
+          };
+        }         
+        `;
+      esbuild.transform(transformedCode, {
+        format: 'esm',
+        target: 'es2017',
+        jsxFactory: 'React.createElement',
+        jsxFragment: 'React.Fragment',
+        loader: 'tsx',
+        globalName: 'Component',
+        sourcemap: 'inline',
+        tsconfigRaw: JSON.stringify({
+          compilerOptions: {
+            module: 'ESNext',
+            lib: ['ESNext'],
+            importHelpers: true,
+            declaration: true,
+            sourceMap: true,
+            strict: true,
+            noUnusedLocals: true,
+            noUnusedParameters: true,
+            noImplicitReturns: true,
+            noFallthroughCasesInSwitch: true,
+            moduleResolution: 'node',
+            jsx: 'react',
+            esModuleInterop: true,
+            target: 'ES2017',
+          },
+        }),
+      }).then((result) => {
+        if (mounted) {
+          const encodedJs = encodeURIComponent(result.code);
+          const dataUri = `data:text/javascript;charset=utf-8,${encodedJs}`;
+          // If the document is still loading, schedule the code
+          // only when the document has loaded.
+          if (container.contentWindow?.document.readyState === 'complete') {
+            container.contentWindow?.postMessage({
+              code: dataUri,
+              refresh: refreshKey,
+            }, '*');
+          } else {
+            container.addEventListener('load', () => {
+              container.contentWindow?.postMessage({
+                code: dataUri,
+                refresh: refreshKey,
+              }, '*');
             });
           }
-          return undefined;
-        }).catch((err) => {
-          onError(err);
-        });
-      } else {
-        container.innerHTML = code;
+        }
+      }).catch((err) => {
+        onError(err);
+      });
 
-        container.querySelectorAll('script').forEach((item) => {
-          // Get the content
-          const content = item.textContent;
-          if (content) {
-            // Create replacement
-            const newScript = document.createElement('script');
-            const textContent = document.createTextNode(content);
-            // Update content
-            newScript.appendChild(textContent);
-            item.parentNode?.replaceChild(newScript, item);
-          }
-        });
-
-        cleanup.current = () => {
-          while (container.firstChild) {
-            if (container.lastChild) {
-              container.removeChild(container.lastChild);
-            }
-          }
-        };
-
+      const confirmLoad = () => {
+        container.contentWindow?.removeEventListener('message', confirmLoad);
         onLoad?.();
-      }
+      };
+
+      container.contentWindow?.addEventListener('message', confirmLoad);
+
+      return () => {
+        mounted = false;
+      };
     }
 
     return () => {
       mounted = false;
     };
-  }, [code, title, onError, onLoad, container, environment]);
+  }, [code, title, onError, onLoad, container, environment, refreshKey]);
 
   return (
-    <div key={refreshKey} ref={setContainer} className="w-full h-full" />
+    <iframe
+      title="Preview"
+      ref={setContainer}
+      className="w-full h-full"
+      srcDoc={IFRAME}
+    />
   );
 }
