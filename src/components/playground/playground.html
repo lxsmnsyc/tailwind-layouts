@@ -17,8 +17,16 @@
 
         if (value === 'dark') {
           document.documentElement.classList.add('dark')
-        } else {
+        } else if (value === 'light') {
           document.documentElement.classList.remove('dark')
+        } else {
+          const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+          if (darkMode) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+          }
         }
       }
 
