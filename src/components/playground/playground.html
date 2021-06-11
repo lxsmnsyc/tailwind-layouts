@@ -86,8 +86,8 @@
         const height = window.innerHeight;
 
         const windowSize = document.getElementById('window-size');
-        windowSize.classList.remove('opacity-0');
-        windowSize.classList.add('opacity-100');
+        windowSize.classList.remove('opacity-0', 'scale-50');
+        windowSize.classList.add('opacity-100', 'scale-100');
 
         if (timeout) {
           clearTimeout(timeout);
@@ -95,8 +95,8 @@
         }
 
         timeout = setTimeout(() => {
-          windowSize.classList.remove('opacity-100');
-          windowSize.classList.add('opacity-0');
+          windowSize.classList.remove('opacity-100', 'scale-100');
+          windowSize.classList.add('opacity-0', 'scale-50');
         }, 1000);
 
         const windowSizeContent = document.getElementById('window-size-content');
@@ -111,7 +111,7 @@
   <body class="w-screen h-screen bg-white text-black dark:bg-black dark:text-white">
     <div id="root" class="w-full h-full">
     </div>
-    <div id="window-size" class="fixed z-50 right-0 top-0 rounded-lg m-2 transition-opacity duration-300 opacity-0 bg-gray-900">
+    <div id="window-size" class="fixed z-50 right-0 top-0 rounded-lg m-2 transition transform-gpu duration-300 opacity-0 scale-75 bg-gray-900">
       <div id="window-size-content" class="px-2 py-1 text-xs text-white font-semibold">
       </div>
     </div>
