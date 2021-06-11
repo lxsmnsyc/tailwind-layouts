@@ -65,6 +65,11 @@ export default function Compiler(
               // Create replacement
               const newScript = document.createElement('script');
               const textContent = document.createTextNode(content);
+              
+              newScript.type = item.type;
+              if (item.src) {
+                newScript.src = item.src;
+              }
               // Update content
               newScript.appendChild(textContent);
               item.parentNode?.replaceChild(newScript, item);
