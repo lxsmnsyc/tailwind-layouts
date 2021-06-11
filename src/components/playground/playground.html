@@ -15,7 +15,7 @@
       function syncDarkMode() {
         const value = localStorage.getItem('theme-preference');
 
-        if (value === 'dark' || (window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (value === 'dark') {
           document.documentElement.classList.add('dark')
         } else {
           document.documentElement.classList.remove('dark')
