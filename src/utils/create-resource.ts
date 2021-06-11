@@ -18,17 +18,19 @@ export type ResourceResult<T, F> =
   | ResourceSuccess<T>
   | ResourceFailure<F>;
 
-export interface Resource<T> {
-  read: () => T;
+export interface Resource<T, Args extends any[]> {
+  read: (...args: Args) => T;
 }
 
-export default function createResource<T, F>(fetcher: () => Promise<T>): Resource<T> {
+export default function createResource<T, F, Args extends any[]>(
+  fetcher: (...args: Args) => Promise<T>,
+): Resource<T, Args> {
   let result: ResourceResult<T, F> | undefined;
 
   return {
-    read() {
+    read(...args: Args) {
       if (result == null) {
-        const promise = fetcher();
+        const promise = fetcher(...args);
         promise.then(
           (value) => {
             result = {
