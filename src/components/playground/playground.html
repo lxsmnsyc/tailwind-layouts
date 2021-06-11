@@ -45,19 +45,43 @@
         document.body.replaceChild(root, document.getElementById('root'));
       }
 
-      function toggleCover(show) {
+      function showCover() {
         const cover = document.getElementById('cover');
-        if (show) {
-          cover.classList.remove('opacity-0');
-          cover.classList.add('opacity-100');
-        } else {
-          cover.classList.remove('opacity-100');
-          cover.classList.add('opacity-0');
-        }
+        cover.classList.remove('opacity-0');
+        cover.classList.add('opacity-100');
+      }
+      
+      function hideCover() {
+        const cover = document.getElementById('cover');
+        cover.classList.remove('opacity-100');
+        cover.classList.add('opacity-0');
       }
 
+      function hideOverlay() {
+        const overlay = document.getElementById('overlay');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+
+      function showOverlay(error) {
+        const overlay = document.getElementById('overlay');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+        
+        const overlayMessage = document.getElementById('overlay-message');
+        overlayMessage.textContent = `${error.name}: ${error.message}`;
+
+        const overlayStack = document.getElementById('overlay-stack');
+        overlayStack.textContent = error.stack;
+      }
+      
+      window.addEventListener('error', (event) => {
+        showOverlay(event.error);
+      });
+
       window.addEventListener('message', (event) => {
-        toggleCover(true);
+        hideOverlay();
+        showCover();
 
         // Check if parent window requested a root reconstruction
         if (refreshKey !== event.data.refresh) {
@@ -78,26 +102,13 @@
           }
           // Evaluate module
           cleanup = mod.default(document.getElementById('root'));
+
           // Send parent window confirmation
           window.parent.postMessage('', '*');
 
-          toggleCover(false);
+          hideCover();
         }).catch((error) => {
-          toggleCover(false);
-          const overlay = document.getElementById('overlay');
-          overlay.classList.remove('opacity-0', 'pointer-events-none');
-          overlay.classList.add('opacity-100', 'pointer-events-auto');
-          
-          const overlayMessage = document.getElementById('overlay-message');
-          overlayMessage.textContent = `${error.name}: ${error.message}`;
-
-          const overlayStack = document.getElementById('overlay-stack');
-          overlayStack.textContent = error.stack;
-
-          cleanup = () => {
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-          };
+          showOverlay(error);
         });
       });
 
@@ -134,7 +145,7 @@
     <div id="portal" class="fixed top-0 left-0 z-50 w-full h-full pointer-events-none"> 
       <div id="cover" class="absolute top-0 left-0 w-full h-full bg-white dark:bg-black transition-opacity duration-200 opacity-100 pointer-events-none">
       </div>
-      <div id="resize-tracker" class="absolute right-0 top-0 rounded-lg m-2 transition transform-gpu duration-200 opacity-0 scale-75 bg-gray-900 pointer-events-none">
+      <div id="resize-tracker" class="absolute right-0 top-0 shadow-lg rounded-lg m-2 transition transform-gpu duration-200 opacity-0 scale-75 bg-gray-900 pointer-events-none">
         <div id="resize-tracker-content" class="px-2 py-1 text-xs text-white font-semibold">
         </div>
       </div>
