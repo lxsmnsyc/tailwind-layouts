@@ -1,4 +1,3 @@
-import { useMonaco } from '@monaco-editor/react';
 import colors from 'tailwindcss/colors';
 
 interface Gradient {
@@ -36,5 +35,3 @@ export function getColor(className: string): string | undefined {
   }
   return undefined;
 }
-
-let LOADED = false;
