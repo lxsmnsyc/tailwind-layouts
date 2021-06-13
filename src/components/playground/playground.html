@@ -38,11 +38,21 @@
 
       let refreshKey;
 
-      function createRoot() {
-        const root = document.createElement('div');
-        root.setAttribute('id', 'root');
-        root.className = 'w-full h-full';
-        document.body.replaceChild(root, document.getElementById('root'));
+      function getRoot() {
+        return document.getElementById('root');
+      }
+
+      function createRoot(newRefreshKey) {
+        const currentRoot = getRoot();
+        if (refreshKey !== newRefreshKey) {
+          refreshKey = newRefreshKey;
+          const root = document.createElement('div');
+          root.setAttribute('id', 'root');
+          root.className = 'w-full h-full';
+          document.body.replaceChild(root, currentRoot);
+          return root;
+        }
+        return currentRoot;
       }
 
       function showCover() {
@@ -84,10 +94,7 @@
         showCover();
 
         // Check if parent window requested a root reconstruction
-        if (refreshKey !== event.data.refresh) {
-          refreshKey = event.data.refresh;
-          createRoot();
-        }
+        const root = createRoot(event.data.refresh);
 
         // Interpret received code
         import(event.data.code).then((mod) => {
@@ -101,7 +108,7 @@
             }
           }
           // Evaluate module
-          cleanup = mod.default(document.getElementById('root'));
+          cleanup = mod.default(root);
 
           // Send parent window confirmation
           window.parent.postMessage('', '*');
