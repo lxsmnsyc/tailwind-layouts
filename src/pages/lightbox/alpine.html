@@ -1,0 +1,38 @@
+<div id="lightbox" class="p-8 w-full h-full flex items-center justify-center">
+  <div
+    x-data="{
+      loading: !$refs.img.complete,
+      expanded: false,
+      show() { this.loading = false; },
+      toggleExpand() {
+        this.expanded = !this.expanded;
+      },
+    }"
+    class="w-full cursor-pointer overflow-hidden flex items-center justify-center filter drop-shadow-lg rounded-lg"
+    x-on:click="toggleExpand()"
+    x-bind:class="expanded ? 'fixed top-0 left-0 w-screen h-screen p-8 bg-gray-900 bg-opacity-75 rounded-none border-none z-50' : 'relative'"
+
+  >
+    <img
+      alt="Forest"
+      src="https://source.unsplash.com/1200x630/?forest"
+      width="1200"
+      height="630"
+      class="w-full h-full object-contain transition-opacity duration-200"
+      x-on:load="show()"
+      x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+      x-ref="img"
+    />
+    <template x-if="loading">
+      <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+      </div>
+    </template>
+  </div>
+</div>
+<script type="module">
+  import Alpine from 'https://cdn.skypack.dev/alpinejs';
+
+  window.Alpine = Alpine;
+
+  Alpine.start();
+</script>

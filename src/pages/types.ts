@@ -4,7 +4,8 @@ export type ProjectMode =
   | 'preact'
   | 'vue-3'
   | 'lit-html'
-  | 'uhtml';
+  | 'uhtml'
+  | 'alpinejs';
 
 export type Project = {
   [key in ProjectMode]: string;

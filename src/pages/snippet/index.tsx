@@ -17,6 +17,7 @@ const PAGE: Page = {
     'vue-3': VUE_3,
     'lit-html': LIT_HTML,
     uhtml: UHTML,
+    alpinejs: HTML,
   },
 };
 

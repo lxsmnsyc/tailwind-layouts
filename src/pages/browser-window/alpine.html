@@ -51,41 +51,31 @@
         </a>
       </div>
     </div>
-    <div class="w-full h-full relative">
+    <div
+      x-data="{ loading: !$refs.iframe.complete, show() { this.loading = false; } }"
+      class="w-full h-full relative"
+    >
       <iframe
         title="TaildwindCSS"
         src="https://tailwindcss.com"
-        class="w-full h-full transition-opacity duration-200 opacity-0"
+        class="w-full h-full transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="iframe"
+        loading="lazy"
       >
       </iframe>
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
     </div>
   </div>
 </div>
 <script type="module">
-  function renderFallback(root) {
-    root.querySelectorAll('iframe').forEach((el) => {
-      if (!el.complete) {
-        const fallback = document.createElement('div');
+  import Alpine from 'https://cdn.skypack.dev/alpinejs';
 
-        fallback.innerHTML = `
-          <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
-          </div>
-        `;
-    
-        el.parentNode.appendChild(fallback);
-    
-        el.addEventListener('load', () => {
-          el.classList.remove('opacity-0');
-          el.classList.add('opacity-100');
-    
-          el.parentNode.removeChild(fallback);
-        });
-      } else {
-        el.classList.remove('opacity-0');
-        el.classList.add('opacity-100');
-      }
-    });
-  }
+  window.Alpine = Alpine;
 
-  renderFallback(document.getElementById('browser-window'));
+  Alpine.start();
 </script>

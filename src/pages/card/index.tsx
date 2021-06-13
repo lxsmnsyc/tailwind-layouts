@@ -4,6 +4,7 @@ import PREACT from './preact?raw';
 import VUE_3 from './vue?raw';
 import LIT_HTML from './lit-html?raw';
 import UHTML from './uhtml?raw';
+import ALPINE from './alpine.html?raw';
 
 import { Page } from '../types';
 
@@ -17,6 +18,7 @@ const PAGE: Page = {
     'vue-3': VUE_3,
     'lit-html': LIT_HTML,
     uhtml: UHTML,
+    alpinejs: ALPINE,
   },
 };
 

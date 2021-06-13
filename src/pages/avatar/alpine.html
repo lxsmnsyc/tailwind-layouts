@@ -1,0 +1,135 @@
+<div id="avatar" class="p-8 w-full h-full flex items-center justify-center flex-row flex-wrap">
+  <div class="w-32 h-32 m-1">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="relative rounded-full w-full h-full overflow-hidden shadow"
+    >
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+  </div>
+  <div class="w-24 h-24 m-1">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="relative rounded-full w-full h-full overflow-hidden shadow"
+    >
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+  </div>
+  <div class="w-16 h-16 m-1">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="relative rounded-full w-full h-full overflow-hidden shadow"
+    >
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+  </div>
+  <div class="w-12 h-12 m-1">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="relative rounded-full w-full h-full overflow-hidden shadow"
+    >
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+  </div>
+  <div class="w-8 h-8 m-1">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="relative rounded-full w-full h-full overflow-hidden shadow"
+    >
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+  </div>
+  <div class="w-4 h-4 m-1">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="relative rounded-full w-full h-full overflow-hidden shadow"
+    >
+      <img
+        alt="Avatar"
+        src="https://source.unsplash.com/256x256"
+        width="256"
+        height="256"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import Alpine from 'https://cdn.skypack.dev/alpinejs';
+
+  window.Alpine = Alpine;
+
+  Alpine.start();
+</script>

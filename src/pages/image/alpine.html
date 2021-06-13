@@ -1,0 +1,33 @@
+<div id="image" class="p-8 w-full h-full flex items-center justify-center">
+  <div class="w-full flex items-center justify-center flex-col">
+    <div
+      x-data="{ loading: !$refs.img.complete, show() { this.loading = false; } }"
+      class="w-3/4 overflow-hidden flex items-center justify-center shadow-lg rounded-lg relative"
+    >
+      <img
+        alt="Forest"
+        src="https://source.unsplash.com/1200x630/?forest"
+        width="1200"
+        height="630"
+        class="w-full h-auto transition-opacity duration-200"
+        x-on:load="show()"
+        x-bind:class="loading ? 'opacity-0' : 'opacity-100'"
+        x-ref="img"
+      />
+      <template x-if="loading">
+        <div class="absolute w-full h-full top-0 left-0 animate-pulse bg-gray-100 dark:bg-gray-900">
+        </div>
+      </template>
+    </div>
+    <div class="w-full p-2 flex items-center justify-center">
+      <span class="text-xs">Source: Unsplash</span>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import Alpine from 'https://cdn.skypack.dev/alpinejs';
+
+  window.Alpine = Alpine;
+
+  Alpine.start();
+</script>

@@ -40,6 +40,7 @@ Since `ESBuild` transforms the input code, it may lose context of what the origi
 - [Vue 3](https://v3.vuejs.org/)
 - [`lit-html`](http://lit-html.polymer-project.org/)
 - [uhtml](https://github.com/WebReflection/uhtml)
+- [Alpine.js](https://alpinejs.dev/)
 
 Upcoming implemenations:
 

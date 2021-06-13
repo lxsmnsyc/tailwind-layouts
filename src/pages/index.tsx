@@ -21,6 +21,7 @@ export const ENVIRONMENTS: Project = {
   'vue-3': 'Vue 3',
   'lit-html': 'lit-html',
   uhtml: 'uhtml',
+  alpinejs: 'Alpine.js',
 };
 
 export const EXTENSIONS: Project = {
@@ -30,6 +31,7 @@ export const EXTENSIONS: Project = {
   'vue-3': 'tsx',
   'lit-html': 'tsx',
   uhtml: 'tsx',
+  alpinejs: 'html',
 };
 
 export const LANGUAGES: Project = {
@@ -39,6 +41,7 @@ export const LANGUAGES: Project = {
   'vue-3': 'typescript',
   'lit-html': 'typescript',
   uhtml: 'typescript',
+  alpinejs: 'html',
 };
 
 const PAGES: Record<string, Page> = {
