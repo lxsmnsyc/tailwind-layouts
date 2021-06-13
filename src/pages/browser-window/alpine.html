@@ -52,7 +52,7 @@
       </div>
     </div>
     <div
-      x-data="{ loading: !$refs.iframe.complete, show() { this.loading = false; } }"
+      x-data="{ loading: $refs.iframe.readyState !== 'complete', show() { this.loading = false; } }"
       class="w-full h-full relative"
     >
       <iframe
