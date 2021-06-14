@@ -20,8 +20,11 @@ function GithubLogo(): JSX.Element {
 export default function Github(): JSX.Element {
   return (
     <div className="py-4 px-2">
-      <a href="https://github.com/lxsmnsyc/tailwind-layouts">
-        <div className="w-6 h-6">
+      <a
+        href="https://github.com/lxsmnsyc/tailwind-layouts"
+        className=""
+      >
+        <div className="w-6 h-6 transition-transform transform-gpu hover:scale-110">
           <GithubLogo />
         </div>
       </a>

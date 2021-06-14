@@ -4,6 +4,8 @@ import { useMediaQuery } from '@lyonph/react-hooks';
 import { Project } from './pages/types';
 import PlaygroundContent from './components/Playground';
 import { Playground } from './components/PlaygroundModel';
+import PlaygroundClipboard from './components/PlaygroundClipboard';
+import PlaygroundDownload from './components/PlaygroundDownload';
 
 interface DemoPageShellProps {
   id: string;
@@ -22,6 +24,10 @@ export default function DemoPageShell(
         <div className="flex-none flex items-center justify-between border-b dark:border-gray-800">
           <div className="p-4 font-bold text-xl">
             <h2>{title}</h2>
+          </div>
+          <div className="flex flex-row items-center justify-center px-2">
+            <PlaygroundClipboard />
+            <PlaygroundDownload />
           </div>
         </div>
         <Split

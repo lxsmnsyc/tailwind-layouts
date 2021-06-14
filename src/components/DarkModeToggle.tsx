@@ -13,7 +13,8 @@ export default function DarkModeToggle(): JSX.Element {
         onClick={() => {
           setPreference(isDarkMode ? 'light' : 'dark');
         }}
-        className="w-6 h-6"
+        className="w-6 h-6 transition-transform transform-gpu hover:scale-110"
+        title="Toggle Dark Mode"
       >
         <span className="sr-only">Toggle Dark Mode</span>
         {isDarkMode
