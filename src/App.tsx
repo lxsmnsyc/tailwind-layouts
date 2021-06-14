@@ -6,6 +6,7 @@ import Home from './Home';
 import PAGES from './pages';
 import FullLoader from './components/FullLoader';
 import { EnvironmentAdapter } from './components/Environment';
+import { Toaster } from 'react-hot-toast';
 
 const DemoPageShell = lazy(() => import('./DemoPageShell'));
 
@@ -43,6 +44,7 @@ export default function App(): JSX.Element {
       <ThemeAdapter>
         <Internal />
       </ThemeAdapter>
+      <Toaster position="bottom-left" />
     </EnvironmentAdapter>
   );
 }
