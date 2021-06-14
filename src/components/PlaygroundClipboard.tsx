@@ -1,9 +1,9 @@
 import { ClipboardCheckIcon, ClipboardIcon } from '@heroicons/react/solid';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import copy from 'copy-to-clipboard';
 import { usePlaygroundCurrentCode } from './PlaygroundModel';
 import { useEnvironmentState } from './Environment';
-import toast from 'react-hot-toast';
 import Toast from './Toast';
 
 export default function PlaygroundClipboard(): JSX.Element {
