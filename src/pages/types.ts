@@ -5,7 +5,8 @@ export type ProjectMode =
   | 'vue-3'
   | 'lit-html'
   | 'uhtml'
-  | 'alpinejs';
+  | 'alpinejs'
+  | 'solid-js';
 
 export type Project = {
   [key in ProjectMode]: string;

@@ -22,6 +22,7 @@ export const ENVIRONMENTS: Project = {
   'lit-html': 'lit-html',
   uhtml: 'uhtml',
   alpinejs: 'Alpine.js',
+  'solid-js': 'SolidJS',
 };
 
 export const EXTENSIONS: Project = {
@@ -32,6 +33,7 @@ export const EXTENSIONS: Project = {
   'lit-html': 'tsx',
   uhtml: 'tsx',
   alpinejs: 'html',
+  'solid-js': 'tsx',
 };
 
 export const LANGUAGES: Project = {
@@ -42,6 +44,7 @@ export const LANGUAGES: Project = {
   'lit-html': 'typescript',
   uhtml: 'typescript',
   alpinejs: 'html',
+  'solid-js': 'typescript',
 };
 
 const PAGES: Record<string, Page> = {
