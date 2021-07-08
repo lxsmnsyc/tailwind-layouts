@@ -1,4 +1,4 @@
-import * as esbuild from 'esbuild-wasm';
+import * as esbuild from 'esbuild-wasm/esm/browser';
 import esbuildWASM from 'esbuild-wasm/esbuild.wasm?url';
 import React, { useEffect, useRef, useState } from 'react';
 import { EXTENSIONS } from '../pages';
