@@ -13,6 +13,10 @@ function Fallback() {
 function Avatar(props) {
   const [loading, setLoading] = createSignal(true);
 
+  function onLoad() {
+    setLoading(false);
+  }
+
   return html`
     <div class="relative rounded-full w-full h-full overflow-hidden shadow">
       <img
@@ -21,9 +25,7 @@ function Avatar(props) {
         width="256"
         height="256"
         class=${() => `w-full h-auto transition-opacity duration-200 ${loading() ? 'opacity-0' : 'opacity-100'}`}
-        @load=${() => {
-          setLoading(false);
-        }}
+        onLoad=${onLoad}
       />
       ${() => loading() && html`<${Fallback} />`}
     </div>

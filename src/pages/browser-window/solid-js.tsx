@@ -51,6 +51,10 @@ function Fallback() {
 function BrowserWindow() {
   const [loading, setLoading] = createSignal(true);
 
+  function onLoad() {
+    setLoading(false);
+  }
+
   return html`
     <div class="p-8 w-full h-full flex items-center justify-center">
       <div class="w-full h-full overflow-hidden shadow-lg flex items-start justify-start flex-col border dark:border-gray-800 rounded-lg">
@@ -80,9 +84,7 @@ function BrowserWindow() {
             title="TaildwindCSS"
             src="https://tailwindcss.com"
             class=${() => `w-full h-full transition-opacity duration-200 ${loading() ? 'opacity-0' : 'opacity-100'}`}
-            @load=${() => {
-              setLoading(false);
-            }}
+            onLoad=${onLoad}
           /> 
           ${() => loading() && html`<${Fallback} />`}
         </div>
