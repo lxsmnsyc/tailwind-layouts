@@ -4,6 +4,7 @@ import PREACT from './preact?raw';
 import VUE_3 from './vue?raw';
 import LIT_HTML from './lit-html?raw';
 import UHTML from './uhtml?raw';
+import SOLID from './solid-js?raw';
 
 import { Page } from '../types';
 
@@ -18,6 +19,7 @@ const PAGE: Page = {
     'lit-html': LIT_HTML,
     uhtml: UHTML,
     alpinejs: HTML,
+    'solid-js': SOLID,
   },
 };
 
