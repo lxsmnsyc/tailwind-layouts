@@ -6,6 +6,7 @@
     "**/preact.tsx",
     "**/lit-html.tsx",
     "**/uhtml.tsx",
+    "**/solid-js.tsx",
   ],
   "include": ["src", "types"],
   "compilerOptions": {
