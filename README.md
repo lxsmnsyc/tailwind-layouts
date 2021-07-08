@@ -41,6 +41,7 @@ Since `ESBuild` transforms the input code, it may lose context of what the origi
 - [`lit-html`](http://lit-html.polymer-project.org/)
 - [uhtml](https://github.com/WebReflection/uhtml)
 - [Alpine.js](https://alpinejs.dev/)
+- [SolidJS](https://www.solidjs.com/)
 
 Upcoming implemenations:
 
