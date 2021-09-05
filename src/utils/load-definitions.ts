@@ -1,4 +1,4 @@
-import { useMonaco } from '@monaco-editor/react';
+import { editor, languages, Uri } from 'monaco-editor';
 import { SKYPACK, UNPKG } from './constants';
 import matchURLS from './match-urls';
 
@@ -10,26 +10,20 @@ interface PackageJSON {
 const GLOBAL_CACHE = new Set();
 
 class DefLoader {
-  private monaco: NonNullable<ReturnType<typeof useMonaco>>;
-
-  constructor(monaco: NonNullable<ReturnType<typeof useMonaco>>) {
-    this.monaco = monaco;
-  }
-
   private addFile(
     content: string,
     uri: string,
     type: string,
   ) {
-    this.monaco.languages.typescript.typescriptDefaults.addExtraLib(
+    languages.typescript.typescriptDefaults.addExtraLib(
       content,
       uri,
     );
 
-    this.monaco.editor.createModel(
+    editor.createModel(
       content,
       type,
-      this.monaco.Uri.parse(uri),
+      Uri.parse(uri),
     );
   }
 
@@ -144,12 +138,11 @@ class DefLoader {
 }
 
 export default async function loadDefinitions(
-  monaco: NonNullable<ReturnType<typeof useMonaco>>,
   source: string,
 ): Promise<void> {
   const imports = matchURLS(source) ?? [];
 
-  const loader = new DefLoader(monaco);
+  const loader = new DefLoader();
 
   await Promise.all(imports.map(async (path) => {
     if (path) {

@@ -1,4 +1,3 @@
-import { useMonaco } from '@monaco-editor/react';
 import { languages } from 'monaco-editor';
 import getRange from '../get-range';
 import getSheet from '../get-sheet';
@@ -52,13 +51,13 @@ function createHover(
 
 let LOADED = false;
 
-export default function initHover(monaco: NonNullable<ReturnType<typeof useMonaco>>): void {
+export default function initHover(): void {
   if (LOADED) {
     return;
   }
   LOADED = true;
 
-  monaco.languages.registerHoverProvider('html', {
+  languages.registerHoverProvider('html', {
     provideHover(model, position) {
       const length = model.getLineLength(position.lineNumber);
       const line = model.getValueInRange({
@@ -82,7 +81,7 @@ export default function initHover(monaco: NonNullable<ReturnType<typeof useMonac
       return createHover(range, word);
     },
   });
-  monaco.languages.registerHoverProvider('typescript', {
+  languages.registerHoverProvider('typescript', {
     provideHover(model, position) {
       const length = model.getLineLength(position.lineNumber);
       const line = model.getValueInRange({

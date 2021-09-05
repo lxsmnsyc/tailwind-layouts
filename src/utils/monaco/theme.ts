@@ -1,4 +1,3 @@
-import { useMonaco } from '@monaco-editor/react';
 import { editor } from 'monaco-editor';
 import GITHUB_DARK from './themes/github-dark.json?raw';
 import GITHUB_LIGHT from './themes/github-light.json?raw';
@@ -28,43 +27,43 @@ const githubDark = JSON.parse(GITHUB_DARK) as TMJSON;
 const githubLight = JSON.parse(GITHUB_LIGHT) as TMJSON;
 
 function processTokenRules(tokens: TMToken[]): editor.ITokenThemeRule[] {
-  return tokens.reduce(
-    (acc, token) => {
-      const rules = (
-        Array.isArray(token.scope)
-          ? token.scope
-          : token.scope.replace(/^[,]+/, '').replace(/[,]+$/, '').split(',')
-      );
-      return [
-        ...acc,
-        ...rules.map((rule) => ({
-          token: rule,
-          fontStyle: token.settings.fontStyle,
-          foreground: token.settings.foreground?.substring(1),
-          background: token.settings.background?.substring(1),
-        })),
-      ];
-    },
-    [] as editor.ITokenThemeRule[],
-  );
+  const result: editor.ITokenThemeRule[] = [];
+  let size = 0;
+  for (let i = 0, len = tokens.length; i < len; i += 1) {
+    const token = tokens[i];
+    const rules = (
+      Array.isArray(token.scope)
+        ? token.scope
+        : token.scope.replace(/^[,]+/, '').replace(/[,]+$/, '').split(',')
+    );
+    const rlen = rules.length;
+    for (let r = 0; r < rlen; r += 1) {
+      result[size + r] = {
+        token: rules[r],
+        fontStyle: token.settings.fontStyle,
+        foreground: token.settings.foreground?.substring(1),
+        background: token.settings.background?.substring(1),
+      }
+    }
+    size += rlen;
+  }
+  return result;
 }
 
-export default function initThemes(
-  monaco: NonNullable<ReturnType<typeof useMonaco>>,
-): void {
+export default function initThemes(): void {
   if (LOADED) {
     return;
   }
   LOADED = true;
 
-  monaco.editor.defineTheme('github-dark', {
+  editor.defineTheme('github-dark', {
     base: 'vs-dark',
     inherit: true,
     rules: processTokenRules(githubDark.tokenColors),
     colors: githubDark.colors,
   });
 
-  monaco.editor.defineTheme('github-light', {
+  editor.defineTheme('github-light', {
     base: 'vs',
     inherit: true,
     rules: processTokenRules(githubLight.tokenColors),

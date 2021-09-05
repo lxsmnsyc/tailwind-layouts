@@ -1,4 +1,3 @@
-import { useMonaco } from '@monaco-editor/react';
 import { languages } from 'monaco-editor';
 import getRange from '../get-range';
 import getSheet from '../get-sheet';
@@ -38,13 +37,13 @@ function createSuggestions(
 
 let LOADED = false;
 
-export default function initSuggestions(monaco: NonNullable<ReturnType<typeof useMonaco>>): void {
+export default function initSuggestions(): void {
   if (LOADED) {
     return;
   }
   LOADED = true;
 
-  monaco.languages.registerCompletionItemProvider('html', {
+  languages.registerCompletionItemProvider('html', {
     provideCompletionItems(model, position) {
       const length = model.getLineLength(position.lineNumber);
       const line = model.getValueInRange({
@@ -66,7 +65,7 @@ export default function initSuggestions(monaco: NonNullable<ReturnType<typeof us
       };
     },
   });
-  monaco.languages.registerCompletionItemProvider('typescript', {
+  languages.registerCompletionItemProvider('typescript', {
     provideCompletionItems(model, position) {
       const length = model.getLineLength(position.lineNumber);
       const line = model.getValueInRange({
